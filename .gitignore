@@ -1,0 +1,23 @@
+#files
+*.class
+org.eclipse*
+
+#folder
+\target
+\.settings
+apache-jmeter-3.0
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+taotao.log*
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
