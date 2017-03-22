@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+/* 设置表格边框 */
+table {width:20%;border-collapse:collapse;border:none;}
+table td {border:solid #000 1px;width:20%}
+
+span {
+	width:100px;
+	height:25px;
+	display:block;
+	line-height:25px;
+	border-radius: 2px;
+	background-color:#f3ae30;
+	color:#333; 
+	margin-top: 20px; 
+	cursor: pointer;
+	text-align: center;
+	margin:0px auto;
+	position:absolute;
+	left:100px;
+	top:150px;
+}
+span:hover {
+	background-color:#ff5500; 
+	color:#111;
+	position:absolute;
+	left:101px;
+	top:151px;
+}
+</style>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>excel</title>
+</head>
+<body>
+	<table >
+		<tr>
+			<th>网站</th>
+			<th colspan="2">统计情况</th>
+			<!-- colspan="2"  占位,表示这一列占2列 -->
+		</tr>
+		<tr>
+			<td rowspan="3">奇虎360</td>
+			<!-- rowspan="2"  占位,表示这一列占3行 -->
+			<td>http://hao.360.cn/</td>
+			<td>11</td>
+		</tr>
+		<tr>
+			<td>http://sh.qihoo.com/</td>
+			<td>22</td>
+		</tr>
+		<tr>
+			<td>http://video.so.com/</td>
+			<td>33</td>
+		</tr>
+	</table>
+	<a class="span" href="/excel/download.do">下载excel</a>
+</body>
+</html>
