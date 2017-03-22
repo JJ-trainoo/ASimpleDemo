@@ -1,11 +1,11 @@
 package com.trainoo.excel;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,20 +17,20 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Ê¹ÓÃpoi²Ù×÷excel
- *
- * @author zhout
- * @date 2017Äê3ÔÂ22ÈÕ
+ * poiæ“ä½œexcel
+ * 
+ * @author zhoutao
+ * @date 2017å¹´3æœˆ22æ—¥
  */
 @Controller
 @RequestMapping("/excel")
@@ -39,9 +39,68 @@ public class PoiExcel {
 	@RequestMapping("/download.do")
 	public void downExcel(HttpServletRequest request, HttpServletResponse response){
 		try {
-			String filePath = request.getSession().getServletContext().getRealPath("static/excel/excelDemo.xlsx");
+			//è·å–æ¨¡æ¿è·¯å¾„ï¼Œåˆ›å»ºå·¥ä½œç°¿
+			String filePath = request.getSession().getServletContext().getRealPath("/static/excel/excelDemo.xlsx");
 			OutputStream os = response.getOutputStream();
 			XSSFWorkbook book = new XSSFWorkbook(new FileInputStream(filePath));
+			XSSFSheet xs = book.getSheetAt(0);
+			
+			//è®¾ç½®æ ·å¼
+			XSSFCellStyle style1 = book.createCellStyle();
+			XSSFCellStyle style = book.createCellStyle();
+			// ä¸Šä¸‹å·¦å³è¾¹æ¡†
+			style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+			style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+			style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+			style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+			// è¾¹æ¡†é¢œè‰²
+			style.setLeftBorderColor(HSSFColor.BLACK.index);
+			style.setRightBorderColor(HSSFColor.BLACK.index);
+			style.setTopBorderColor(HSSFColor.BLACK.index);
+			style.setBottomBorderColor(HSSFColor.BLACK.index);
+	        // å±…ä¸­å¯¹é½
+			style.setAlignment(HSSFCellStyle.ALIGN_LEFT);
+			style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+			style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	        style1.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+			
+			//åˆå§‹åŒ–ä¸€ä¸ªè¡¨æ ¼
+			XSSFRow row = xs.getRow(0);  //è¿™é‡Œç”¨getè€Œä¸æ˜¯create,æ˜¯å› ä¸ºç¬¬ä¸€è¡Œåœ¨æ¨¡æ¿ä¸­å·²ç»æœ‰äº†
+			XSSFCell cell = row.createCell(6);  //è¿™é‡Œä½¿ç”¨create,å› ä¸ºæ¨¡æ¿åªæœ‰5åˆ—ã€‚ ç¬¬ä¸ƒåˆ—æ˜¯null
+			cell.setCellValue("ç½‘ç«™");
+			cell.setCellStyle(style1);
+			cell = row.createCell(7);
+			cell.setCellValue("ç»Ÿè®¡æƒ…å†µ");
+			cell.setCellStyle(style1);
+			for(int i=1; i < 4; i++){
+				row = xs.getRow(i);
+				for(int j=6; j<9; j++){
+					cell = row.createCell(j);
+					cell.setCellStyle(style);
+					cell.setCellValue("ij");
+				}
+			}
+			xs.getRow(1).getCell(6).setCellValue("å¥‡è™360");
+			xs.getRow(1).getCell(7).setCellValue("http://hao.360.cn/");
+			xs.getRow(1).getCell(8).setCellValue(11);
+			xs.getRow(2).getCell(7).setCellValue("http://sh.qihoo.com/");
+			xs.getRow(2).getCell(8).setCellValue(22);
+			xs.getRow(3).getCell(7).setCellValue("http://video.so.com/");
+			xs.getRow(3).getCell(8).setCellValue(33);
+			xs.getRow(4).createCell(6).setCellValue(new Date().toGMTString());
+			
+			//åˆå¹¶å•å…ƒæ ¼
+			xs.addMergedRegion(new CellRangeAddress(0, 0, 7, 8));
+			xs.addMergedRegion(new CellRangeAddress(1, 3, 6, 6));
+			//è®¾ç½®ç¬¬6åˆ—å®½
+			xs.autoSizeColumn(7, true);
+			
+			//æ–‡ä»¶è¾“å‡ºè®¾ç½®
+			response.setCharacterEncoding("UTF-8");
+			String fileName = URLEncoder.encode("FileName", "UTF-8");  //æ–‡ä»¶å
+			response.setContentType("application/vnd.ms-excel");	// å“åº”ç±»å‹
+			response.setHeader("Content-disposition","attachment;filename="+fileName+".xlsx");// å“åº”å¤´
+			//è¾“å‡ºæµæ–‡ä»¶
 			book.write(os);
 			os.close();
 			
@@ -53,40 +112,40 @@ public class PoiExcel {
 
 	public static void main(String[] args) throws Exception {
 
-		//´´½¨¹¤×÷²¾
+		//åˆ›å»ºå·¥ä½œç°¿
 		HSSFWorkbook book = new HSSFWorkbook();
 		HSSFSheet st = book.createSheet("sheet1");
 
 		/*
-		 * ÑùÊ½µ÷Õû
+		 * è®¾ç½®æ ·å¼
 		 */
 		HSSFCellStyle style = book.createCellStyle();
-		// ×óÓÒÉÏÏÂ±ß¿òÑùÊ½
+		// ä¸Šä¸‹å·¦å³è¾¹æ¡†
 		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
 		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		// ×óÓÒÉÏÏÂ±ß¿òÑÕÉ«(ÉîÀ¶É«),Ö»ÓĞÉèÖÃÁËÉÏÏÂ×óÓÒ±ß¿òÒÔºó¸ø±ß¿òÉèÖÃÑÕÉ«²Å»áÉúĞ§
+		// è¾¹æ¡†é¢œè‰²
 		style.setLeftBorderColor(HSSFColor.BLACK.index);
 		style.setRightBorderColor(HSSFColor.BLACK.index);
 		style.setTopBorderColor(HSSFColor.BLACK.index);
 		style.setBottomBorderColor(HSSFColor.BLACK.index);
-		//¸øµ¥Ôª¸ñÉèÖÃ±³¾°£º
-        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);// ÉèÖÃÁË±³¾°É«²ÅÓĞĞ§¹û
+		// è®¾ç½®èƒŒæ™¯é¢œè‰²ï¼Œå…ˆåˆ›å»ºèƒŒæ™¯ï¼Œå†å¡«å……é¢œè‰²
+        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
         style.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
-        // µ¥Ôª¸ñ×ÖÌå
+        // å­—ä½“æ ·å¼
         HSSFFont font = book.createFont();
-        font.setFontName("ËÎÌå");
+        font.setFontName("å®‹ä½“");
         font.setFontHeightInPoints((short) 14);
         font.setColor(HSSFColor.DARK_RED.index);
         style.setFont(font);
-        // ÉèÖÃ¾ÓÖĞ¶ÔÆë
+        // å±…ä¸­å¯¹é½
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
         style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
         
         /*
-         * ´´½¨±í¸ñ
-         * i ĞĞ j ÁĞ
+         * åˆå§‹åŒ–è¡¨æ ¼
+         * iè¡Œjåˆ—
          */
 		for(int i=0; i < 9; i++){
 			HSSFRow row = st.createRow(i);
@@ -98,14 +157,14 @@ public class PoiExcel {
 		}
 		
 		/*
-		 * ºÏ²¢±í¸ñ£¬²ÎÊı£º
+		 * åˆå¹¶å•å…ƒæ ¼ï¼Œå‚æ•°å¦‚ä¸‹:
 		 * CellRangeAddress(int firstRow, int lastRow, int firstCol, int lastCol)
 		 */
 		CellRangeAddress region = new CellRangeAddress(0, 3, 0, 2);
 		st.addMergedRegion(region);
 
 		/*
-		 * Êä³öµ½ÎÄ¼ş
+		 * è¾“å‡ºåˆ°æ–‡ä»¶
 		 */
 		FileOutputStream output=new FileOutputStream("E:/test.xls");  
 		book.write(output);

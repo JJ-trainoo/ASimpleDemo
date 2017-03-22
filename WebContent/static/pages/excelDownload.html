@@ -20,19 +20,23 @@ span {
 	margin:0px auto;
 	position:absolute;
 	left:100px;
-	top:150px;
+	top:100px;
 }
 span:hover {
 	background-color:#ff5500; 
 	color:#111;
 	position:absolute;
+}
+span:active {
+	position:absolute;
 	left:101px;
-	top:151px;
+	top:101px;
 }
 </style>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="/ASimpleDemo/static/images/content/favicon.ico" >
 <title>excel</title>
 </head>
 <body>
@@ -57,6 +61,6 @@ span:hover {
 			<td>33</td>
 		</tr>
 	</table>
-	<a class="span" href="/excel/download.do">下载excel</a>
+	<span class="span" onclick="javascript:window.open('/ASimpleDemo/excel/download.do')">下载excel</span>
 </body>
 </html>
