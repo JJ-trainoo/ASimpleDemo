@@ -6,10 +6,11 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">  
 	
 	<welcome-file-list>
-    	<welcome-file>index.jsp</welcome-file>
+    	<welcome-file>index.html</welcome-file>
   	</welcome-file-list>
   	
-  	<servlet>
+	<!-- ip名片 -->
+	<servlet>
   		<servlet-name>netcard</servlet-name>
   		<servlet-class>com.trainoo.netcard.netCardServlet</servlet-class>
   	</servlet>
@@ -18,4 +19,36 @@
   		<url-pattern>/netcard</url-pattern>
   	</servlet-mapping>
   	
+	<!-- 解决post乱码 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  	
+  	
+  	<!-- springmvc的前端控制器 -->
+ 	<servlet>
+		<servlet-name>ASimpleDemo</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!--  contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml"-->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ASimpleDemo</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
 </web-app>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+      
+    <!-- 启用MVC注解 -->
+    <mvc:annotation-driven />
+	
+	<!-- 指定Sping组件扫描的基本包路径 -->
+	<context:component-scan base-package="com.trainoo.**">
+	    <!-- 如果分开配置Service的扫描的话，加上如下配置，这里只扫描Controller，不可重复加载Service  -->
+		<!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />  -->
+	</context:component-scan>
+	
+	<!-- 静态资源文件，不会被Spring MVC拦截  cache-period:缓存一年 -->
+    <mvc:resources location="/static/images/" mapping="/images/**" cache-period="31536000" />
+    <mvc:resources location="/static/pages/" mapping="/pages/**" />
+	
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
+
+	<mvc:default-servlet-handler />
+</beans>
