@@ -24,44 +24,40 @@ import com.trainoo.utils.LunarCalendar;
 import nl.bitwalker.useragentutils.UserAgent;
 
 /**
- * Éú³ÉÒ»ÕÅipÃûÆ¬
- *
- * @author zhout
- * @date 2017Äê3ÔÂ15ÈÕ
+ * åœ¨çº¿ç”Ÿæˆipåç‰‡
+ * @author zhoutao
+ * @date 2017å¹´3æœˆ10æ—¥
  */
 public class netCardServlet extends HttpServlet {
 
-	/**
-	 * @author zhout
-	 * @date 2017Äê3ÔÂ10ÈÕ
-	 */
 	private static final long serialVersionUID = -2971903955977636139L;
 	
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// »ñÈ¡ÓÃ»§ä¯ÀÀÆ÷ÀàĞÍ¸úÏµÍ³ÀàĞÍ
+		// è·å–ç³»ç»Ÿç‰ˆæœ¬ã€æµè§ˆå™¨åã€ç‰ˆæœ¬å·ç­‰
 		UserAgent userAgent = UserAgent.parseUserAgentString(req.getHeader("User-Agent"));
 		String operatingSystem = userAgent.getOperatingSystem().getName();
 		String browserName = userAgent.getBrowser().getName();
 		String browVersion = userAgent.getBrowserVersion().getVersion().split("\\.")[0];
 		System.out.println(operatingSystem + " " + browserName + " " + browVersion);
-		// »ñÈ¡ÓÃ»§ipµØÖ·
+		// è·å–ipåœ°å€
 		/*
 		 * HttpUtil.get("http://ip.chinaz.com/getip.aspx", "UTF-8")
-		 * "{\"address\":\"¹ã¶«Ê¡ÉîÛÚÊĞ µçĞÅ\",\"ip\":\"202.104.140.90\"}"
+		 * "{\"address\":\"å¹¿ä¸œæ·±åœ³ ç”µä¿¡\",\"ip\":\"202.104.140.90\"}"
 		 */
 		String json = HttpUtil.get("http://ip.chinaz.com/getip.aspx", "UTF-8");
 		Map<String, String> map = (Map<String, String>) JSONObject.parse(json);
 		String ip = map.get("ip");
 		String address = map.get("address");
 		System.out.println(map);
-		//µÃµ½Êä³öÁ÷
+		// è·å–è¾“å‡ºæµ
 		OutputStream os = resp.getOutputStream();
 		try {
-			//Éú³ÉÍ¼Æ¬
+			// å¾—åˆ°èƒŒæ™¯å›¾ç‰‡è·¯å¾„
 			String path = req.getScheme() + "://" + req.getServerName()+ ":" + req.getServerPort() ;
+			// åœ¨èƒŒæ™¯å›¾ç‰‡å±±è¿›è¡Œç¼–è¾‘
 			createImg(os, path, operatingSystem, browserName, browVersion, ip, address);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,22 +74,22 @@ public class netCardServlet extends HttpServlet {
 	}
 
 	/**
-	 * ¸ù¾İ»ñÈ¡µ½µÄĞÅÏ¢Éú³ÉÒ»ÕÅÍ¼Æ¬
-	 * @author zhout
-	 * @date 2017Äê3ÔÂ13ÈÕ
-	 * @param os  Í¼Æ¬ÊäÈëÁ÷
-	 * @param operatingSystem ²Ù×÷ÏµÍ³
-	 * @param browserName  ä¯ÀÀÆ÷
-	 * @param browVersion  ä¯ÀÀÆ÷°æ±¾
-	 * @param ip           ip
-	 * @param address      ipµØÖ·
+	 * ç”Ÿæˆå›¾ç‰‡
+	 * @authod zhoutao
+	 * @param os
+	 * @param path
+	 * @param operatingSystem
+	 * @param browserName
+	 * @param browVersion
+	 * @param ip
+	 * @param address
 	 * @throws IOException
 	 */
 	private static void createImg(OutputStream os, String path, String operatingSystem, String browserName, String browVersion,
 			String ip, String address) throws IOException {
 		BufferedImage buffImg = new BufferedImage(300, 126, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) buffImg.getGraphics();
-		//ÉèÖÃ±³¾°ÑÕÉ«
+		// è®¾ç½®èƒŒæ™¯é¢œè‰²
 		/*Color bColor = new Color(175, 175, 175, 100);
 		Color bColor2 = new Color(244, 244, 244, 200);
 		g.setColor(bColor);
@@ -102,33 +98,33 @@ public class netCardServlet extends HttpServlet {
 		g.setColor(bColor2);
 		RoundRectangle2D roundedRectangle2 = new RoundRectangle2D.Float(3, 3, 294, 120, 10, 10);
 		g.fill(roundedRectangle2);*/
-		//ÉèÖÃ±³¾°Í¼Æ¬
+		// é€šè¿‡æ–‡ä»¶ç”Ÿæˆä¸€ä¸ªå›¾ç‰‡buffer
 		URL input = new URL(path + "/ASimpleDemo/static/images/netcard/netCard.png");
 		BufferedImage bImg = ImageIO.read(input);
 		g.drawImage(bImg, 0, 0, null);
-		//ÉèÖÃ×ÖÌåÑÕÉ«
+		// è®¾ç½®å­—ä½“é¢œè‰²ï¼Œå¤§å°
 		g.setColor(new Color(110, 110, 110));
-		g.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 11));
-		//´òÓ¡ipµØÖ·
-		g.drawString("ÄúÀ´×Ô:" + address + "...", 30, 32);
+		g.setFont(new Font("å¾®è½¯é›…é»‘", Font.PLAIN, 11));
+		// åœ°å€
+		g.drawString("æ‚¨æ¥è‡ª:" + address + "...", 30, 32);
 		g.drawString(operatingSystem, 249 - operatingSystem.length()*5 , 32);
-		//´òÓ¡ip
+		// ip
 		g.drawString("IP:" + ip, 30, 54);
-		g.drawString(browserName + " £¨" + browVersion+"£©", 249 - (2+browserName.length()+browVersion.length())*5, 54);
-		//´òÓ¡ÈÕÆÚ
+		g.drawString(browserName + " " + browVersion+" ", 249 - (2+browserName.length()+browVersion.length())*5, 54);
+		// æ—¥æœŸ
 		String yMD = DateUtil.getYMD_CN();
-		g.drawString("½ñÌìÊÇ" + yMD, 30, 76);
-		//´òÓ¡ĞÇÆÚ
+		g.drawString("ä»Šå¤©æ˜¯" + yMD, 30, 76);
+		// æ˜ŸæœŸ
 		String dayOfWeek = DateUtil.getDayOfWeek();
 		g.drawString(dayOfWeek, 200, 76);
-		//´òÓ¡Ïà¹ØĞÅÏ¢
+		// ç‰ˆæƒ
 		g.setColor(new Color(216, 65, 65));
-		g.drawString("ÔÚÏß¹¤¾ß", 30, 100);
+		g.drawString("åœ¨çº¿å·¥å…·", 30, 100);
 		g.setColor(new Color(72, 142, 72));
 		g.drawString("zhoutao.com", 200, 100);
-		//Í¼Æ¬Êä³ö
+		// è¾“å‡ºæµ
 		ImageIO.write(buffImg, "png", os);
-		//¹Ø±ÕÁ÷
+		// å…³é—­æµ
 		os.close();
 	}
 	

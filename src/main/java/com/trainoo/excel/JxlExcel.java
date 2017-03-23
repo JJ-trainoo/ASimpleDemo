@@ -15,58 +15,57 @@ import jxl.write.WritableWorkbook;
 
 
 /**
- * Ê¹ÓÃjxl²Ù×÷excel
- *
- * @author zhout
- * @date 2017Äê3ÔÂ22ÈÕ
+ * ä½¿ç”¨jxlæ“ä½œexcel
+ * @author zhoutao
+ * @date 2017å¹´3æœˆ22æ—¥
  */
 public class JxlExcel {
 
 	public static void main(String[] args) throws Exception {
 
 		/*
-		 * ÓÃÁ÷µÄ·½Ê½¶ÁÈ¡Ä£°å²¢Êä³öÁ÷
+		 * è¯»å–æ¨¡æ¿ï¼Œç”¨æµè¾“å‡ºæ–‡ä»¶
 		 * 
-			// »ñÈ¡ÎÄ¼ş¾ø¶ÔÂ·¾¶
+			// è·å–æ¨¡æ¿è·¯å¾„
 			String path = request.getSession().getServletContext().getRealPath("static/excel/NSXY.xls");
-			// ´´½¨¹¤×÷²¾
+			// åˆ›å»ºå·¥ä½œç°¿
 			Workbook rwb = null;
 			WritableWorkbook wwb = null;
-			// ´ÓÎÄ¼şÖĞ¶ÁxlsÄ£°å
+			// è·å–æ–‡ä»¶
 			InputStream is = new FileInputStream(path);
 			rwb = Workbook.getWorkbook(is);
-			// ±ä³É¿É±à¼­µÄ
+			// è½¬æ¢æˆå¯ç¼–è¾‘çš„å·¥ä½œç°¿
 			WorkbookSettings settings = new WorkbookSettings();
 			settings.setWriteAccess(null);
 			wwb = Workbook.createWorkbook(response.getOutputStream(), rwb, settings);
-			// »ñÈ¡µÚÒ»Ò³
+			// å¾—åˆ°ç¬¬ä¸€é¡µ
 			WritableSheet ws = (WritableSheet) wwb.getSheet("Sheet1");
-			// ÉèÖÃÊä³ö¸ñÊ½
+			// è®¾ç½®è¾“å‡ºå¤´
 			response.setCharacterEncoding("UTF-8");
-			String fileName = URLEncoder.encode("FileName", "UTF-8");  //ÎÄ¼şÃû
-			response.setContentType("application/vnd.ms-excel");	// ¶¨ÒåÊä³öÀàĞÍ 
-			response.setHeader("Content-disposition","attachment;filename="+fileName+".xls");// Éè¶¨Êä³öÎÄ¼şÍ· 
+			String fileName = URLEncoder.encode("FileName", "UTF-8");  //æ–‡ä»¶å
+			response.setContentType("application/vnd.ms-excel");	// å“åº”ç±»å‹
+			response.setHeader("Content-disposition","attachment;filename="+fileName+".xls");// å“åº”å¤´
 		*/
 		
 		
-		// ´´½¨¹¤×÷±¡
+		// åˆ›å»ºå·¥ä½œç°¿
 		WritableWorkbook wwb = Workbook.createWorkbook(new File("E:/test.xls"));
-		// ´´½¨ĞÂµÄÒ»Ò³
+		// å¾—åˆ°ç¬¬ä¸€é¡µ
 		WritableSheet ws = wwb.createSheet("Sheet1", 0);
-		// ÉèÖÃ×ÖÌå£¬±ß¿ò
+		// è·å–æ ·å¼
 		WritableFont wf = new WritableFont(WritableFont.TIMES, 14, WritableFont.NO_BOLD, false);
 		WritableCellFormat wcf = new WritableCellFormat(wf);
-		// ×Ô¶¯»»ĞĞ
+		// è‡ªé€‚åº”
 		wcf.setWrap(true);
 		wcf.setShrinkToFit(true);
-		// Ë®Æ½¾ÓÖĞ
+		// æ°´å¹³å±…ä¸­
 		wcf.setAlignment(Alignment.CENTRE);
-		// ´¹Ö±¾ÓÖĞ
+		// å‚ç›´å±…ä¸­
 		wcf.setVerticalAlignment(VerticalAlignment.CENTRE);
-		// ±ß¿ò
+		// è®¾ç½®è¾¹æ¡†
 		wcf.setBorder(Border.ALL, BorderLineStyle.THIN);
 
-		// ³õÊ¼»¯±í¸ñ
+		// åˆå§‹åŒ–è¡¨æ ¼  6åˆ—  18è¡Œ
 		for (int i = 0; i < 6; i++) {
 			for (int j = 1; j < 18; j++) {
 				ws.setColumnView(i, 28);
@@ -75,25 +74,25 @@ public class JxlExcel {
 		}
 
 		/*
-		 * ÏàÍ¬²¿·Ö±íÍ· ´´½¨ÒªÏÔÊ¾µÄÄÚÈİ,´´½¨Ò»¸öµ¥Ôª¸ñ£¬ µÚÒ»¸ö²ÎÊıÎªÁĞ×ø±ê£¬µÚ¶ş¸ö²ÎÊıÎªĞĞ×ø±ê£¬µÚÈı¸ö²ÎÊıÎªÄÚÈİ
+		 * è¡¨æ ¼å†…å®¹
 		 */
-		Label label_01 = new Label(0, 0, "¸½¼ş1", wcf);
-		Label label_02 = new Label(0, 1, "¡°XXXX¡±»î¶¯ÍÆ½øÇé¿öÍ³¼Æ±í", wcf);
-		Label label_03 = new Label(0, 2, "Ìî±íµ¥Î»£ºXXXX", wcf);
-		Label label_04 = new Label(4, 2, "µ¥Î»£º»§¡¢±Ê¡¢ÍòÔª¡¢%", wcf);
-		Label label_05 = new Label(0, 3, "ÒøË°ºÏ×÷»úÖÆ½¨Á¢Çé¿ö", wcf);
-		Label label_06 = new Label(1, 3, "ÊÇ·ñ½¨Á¢ÁªÏ¯»áÒéÖÆ¶È", wcf);
-		Label label_07 = new Label(1, 4, "ÓëÊ¡Ë°Îñ»ú¹ØÇ©¶©Ğ­ÒéµÄÒøĞĞÒµ½ğÈÚ»ú¹¹  £¨½ØÖÁ2016Äê6ÔÂ30ÈÕÒÑÇ©¶©Ğ­Òé£©", wcf);
-		Label label_08 = new Label(3, 4, "10¼Ò", wcf);
-		Label label_09 = new Label(3, 3, "ÊÇ", wcf);
-		Label label_10 = new Label(4, 4, "AAÒøĞĞ¡¢BBÒøĞĞ¡¢CCÒøĞĞ¡¢DDÒøĞĞ¡¢EEÒøĞĞ¡¢FFÒøĞĞ¡¢GGÒøĞĞ¡¢HHÒøĞĞ¡¢IIÒøĞĞ¡¢JJÒøĞĞ", wcf);
-		Label label_11 = new Label(3, 5, "Ê¡¼¶Ç©Ô¼ÒøĞĞ", wcf);
-		Label label_12 = new Label(4, 5, "¸÷µØÇ©Ô¼ÒøĞĞ", wcf);
-		Label label_13 = new Label(5, 5, "ºÏ¼Æ", wcf);
+		Label label_01 = new Label(0, 0, "é™„ä»¶ä¸€", wcf);
+		Label label_02 = new Label(0, 1, "XXXXXç»Ÿè®¡æŠ¥è¡¨", wcf);
+		Label label_03 = new Label(0, 2, "ASimpleDemoè”åˆç¼–åˆ¶", wcf);
+		Label label_04 = new Label(4, 2, "ä»…ä¾›æµ‹è¯•ä½¿ç”¨", wcf);
+		Label label_05 = new Label(0, 3, "â€œæµ‹è¯•é¡¹ç›®â€æˆæ•ˆç»Ÿè®¡", wcf);
+		Label label_06 = new Label(1, 3, "æ˜¯å¦ç¬¦åˆè¦æ±‚", wcf);
+		Label label_07 = new Label(1, 4, "åˆä½œé“¶è¡Œ", wcf);
+		Label label_08 = new Label(3, 4, "10å®¶", wcf);
+		Label label_09 = new Label(3, 3, "æ˜¯", wcf);
+		Label label_10 = new Label(4, 4, "ä¸­å›½é“¶è¡Œï¼Œå»ºè®¾é“¶è¡Œï¼Œå†œä¸šé“¶è¡Œï¼Œå·¥å•†é“¶è¡Œ", wcf);
+		Label label_11 = new Label(3, 5, "çœçº§ç­¾çº¦é“¶è¡Œ", wcf);
+		Label label_12 = new Label(4, 5, "å„åœ°ç­¾çº¦é“¶è¡Œ", wcf);
+		Label label_13 = new Label(5, 5, "åˆè®¡", wcf);
 
 		/*
-		 * ºÏ²¢µ¥Ôª¸ñ µÚÒ»¸ö²ÎÊı£ºÒªºÏ²¢µÄµ¥Ôª¸ñ×î×óÉÏ½ÇµÄÁĞºÅ£¬ µÚ¶ş¸ö²ÎÊı£ºÒªºÏ²¢µÄµ¥Ôª¸ñ×î×óÉÏ½ÇµÄĞĞºÅ£¬
-		 * µÚÈı¸ö²ÎÊı£ºÒªºÏ²¢µÄµ¥Ôª¸ñ×îÓÒ½ÇµÄÁĞºÅ£¬ µÚËÄ¸ö²ÎÊı£ºÒªºÏ²¢µÄµ¥Ôª¸ñ×îÓÒÏÂ½ÇµÄĞĞºÅ
+		 * åˆå¹¶å•å…ƒæ ¼
+		 * å‚æ•°ï¼ˆèµ·å§‹åˆ—æ ‡ï¼Œ èµ·å§‹è¡Œæ ‡ï¼Œ ç»“æŸåˆ—æ ‡ï¼Œ ç»“æŸè¡Œæ ‡ï¼‰
 		 */
 		ws.mergeCells(0, 1, 5, 1);
 		ws.mergeCells(0, 2, 2, 2);
@@ -118,52 +117,7 @@ public class JxlExcel {
 		ws.addCell(label_12);
 		ws.addCell(label_13);
 
-		/*
-		 * ±í - ÒøË°ºÏ×÷Êµ¼Ê·¢·Å´û¿îÇé¿ö
-		 */
-		Label label_14 = new Label(0, 6, "Êµ¼Ê·¢·Å´û¿îÇé¿ö", wcf);
-		Label label_15 = new Label(1, 6, "ÊÚĞÅ/´û¿î±ÊÊı", wcf);
-		Label label_16 = new Label(1, 9, "ÊÚĞÅ/´û¿î½ğ¶î", wcf);
-		Label label_17 = new Label(1, 12, "´û¿îÓà¶î", wcf);
-		Label label_18 = new Label(1, 15, "²»Á¼´û¿î", wcf);
-		Label label_19 = new Label(2, 6, "×Ü±ÊÊı(º¬´óÖĞĞÍÆóÒµ)", wcf);
-		Label label_20 = new Label(2, 7, "ÆäÖĞ£ºĞ¡Î¢ÆóÒµºÏ¼Æ", wcf);
-		Label label_21 = new Label(2, 8, "Õ¼Ğ¡Î¢ÆóÒµ±ÊÊı£¨%£©", wcf);
-		Label label_22 = new Label(2, 9, "×Ü½ğ¶î(º¬´óÖĞĞÍÆóÒµ)", wcf);
-		Label label_23 = new Label(2, 10, "ÆäÖĞ£ºĞ¡Î¢ÆóÒµºÏ¼Æ", wcf);
-		Label label_24 = new Label(2, 11, "Õ¼Ğ¡Î¢ÆóÒµ´û¿î£¨%£©", wcf);
-		Label label_25 = new Label(2, 12, "×Ü½ğ¶î(º¬´óÖĞĞÍÆóÒµ)", wcf);
-		Label label_26 = new Label(2, 13, "ÆäÖĞ£ºĞ¡Î¢ÆóÒµºÏ¼Æ", wcf);
-		Label label_27 = new Label(2, 14, "Õ¼Ğ¡Î¢ÆóÒµÓà¶î£¨%£©", wcf);
-		Label label_28 = new Label(2, 15, "±ÊÊı", wcf);
-		Label label_29 = new Label(2, 16, "½ğ¶î", wcf);
-		Label label_30 = new Label(2, 17, "²»Á¼ÂÊ£¨%£©", wcf);
-
-		ws.mergeCells(0, 6, 0, 17);
-		ws.mergeCells(1, 6, 1, 8);
-		ws.mergeCells(1, 9, 1, 11);
-		ws.mergeCells(1, 12, 1, 14);
-		ws.mergeCells(1, 15, 1, 17);
-
-		ws.addCell(label_14);
-		ws.addCell(label_15);
-		ws.addCell(label_16);
-		ws.addCell(label_17);
-		ws.addCell(label_18);
-		ws.addCell(label_19);
-		ws.addCell(label_20);
-		ws.addCell(label_21);
-		ws.addCell(label_22);
-		ws.addCell(label_23);
-		ws.addCell(label_24);
-		ws.addCell(label_25);
-		ws.addCell(label_26);
-		ws.addCell(label_27);
-		ws.addCell(label_28);
-		ws.addCell(label_29);
-		ws.addCell(label_30);
-
-		// °Ñ´´½¨µÄÄÚÈİĞ´Èëµ½ÎÄ¼şÖĞ£¬²¢¹Ø±Õ¹¤×÷±¡
+		// æ–‡ä»¶è¾“å‡ºï¼Œå…³é—­å·¥ä½œç°¿
 		wwb.write();
 		wwb.close();
 	}
