@@ -36,6 +36,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/excel")
 public class PoiExcel {
 	
+	/**
+	 * XSSFWorkbook   操作xlsx文件
+	 * HSSFWorkBook   操作xls文件
+	 * 
+	 * @author zhout
+	 * @date 2017年3月23日
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping("/download.do")
 	public void downExcel(HttpServletRequest request, HttpServletResponse response){
 		try {
@@ -87,7 +96,7 @@ public class PoiExcel {
 			xs.getRow(2).getCell(8).setCellValue(22);
 			xs.getRow(3).getCell(7).setCellValue("http://video.so.com/");
 			xs.getRow(3).getCell(8).setCellValue(33);
-			xs.getRow(4).createCell(6).setCellValue(new Date().toGMTString());
+			xs.getRow(4).createCell(6).setCellValue(new Date());
 			
 			//合并单元格
 			xs.addMergedRegion(new CellRangeAddress(0, 0, 7, 8));

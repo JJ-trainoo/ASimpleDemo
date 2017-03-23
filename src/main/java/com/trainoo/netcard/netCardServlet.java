@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.Calendar;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.trainoo.utils.DateUtil;
 import com.trainoo.utils.HttpUtil;
-import com.trainoo.utils.LunarCalendar;
 
 import nl.bitwalker.useragentutils.UserAgent;
 
@@ -129,8 +127,5 @@ public class netCardServlet extends HttpServlet {
 	}
 	
 	public static void main(String[] args) {
-		LunarCalendar lc  = LunarCalendar.getInstance();
-		Calendar c = Calendar.getInstance();
-		lc.set(c);
 	}
 }

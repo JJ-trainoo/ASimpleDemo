@@ -1,8 +1,3 @@
-/*
- * ÃèÊö£ºhttpÇëÇó¹¤¾ßÀà
- * ´´½¨ÈË£ºpan.tang
- * ´´½¨Ê±¼ä£º2012-8-13
- */
 package com.trainoo.utils;
 
 import java.io.BufferedReader;
@@ -18,175 +13,187 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * httpÇëÇó¹¤¾ßÀà£¬ÒÔget»òpost·½Ê½·¢ËÍhttpÇëÇó£¬»ñÈ¡·µ»Ø½á¹û£¨×Ö·û´®£©
+ * httpè¯·æ±‚å·¥å…·ç±»ï¼Œä»¥getæˆ–postæ–¹å¼å‘é€httpè¯·æ±‚ï¼ŒèŽ·å–è¿”å›žç»“æžœï¼ˆå­—ç¬¦ä¸²ï¼‰
  */
 public final class HttpUtil {
-    /**
-     * ½ûÖ¹ÊµÀý»¯
-     */
-    private HttpUtil() { }
-    
-    /** ÏìÓ¦³¬Ê±Ê±¼ä£¨ºÁÃë£©**/
-    private static final int    DEFAULT_CONNECTION_TIME_OUT = 100000;
+	/**
+	 * ç¦æ­¢å®žä¾‹åŒ–
+	 */
+	private HttpUtil() {
+	}
 
-    /** ¶ÁÈ¡³¬Ê±Ê±¼ä£¨ºÁÃë£©**/
-    private static final int    DEFAULT_READ_TIME_OUT       = 100000;
+	/** å“åº”è¶…æ—¶æ—¶é—´ï¼ˆæ¯«ç§’ï¼‰ **/
+	private static final int DEFAULT_CONNECTION_TIME_OUT = 100000;
 
-    /** Ä¬ÈÏ±àÂë  **/
-    private static final String DEFAULT_ENCODING            = "gb2312";
+	/** è¯»å–è¶…æ—¶æ—¶é—´ï¼ˆæ¯«ç§’ï¼‰ **/
+	private static final int DEFAULT_READ_TIME_OUT = 100000;
 
-    /** ÇëÇó·½Ê½ GET  **/
-    private static final String REQUEST_METHOD_GET          = "GET";
+	/** é»˜è®¤ç¼–ç  **/
+	private static final String DEFAULT_ENCODING = "UTF-8";
 
-    /** ÇëÇó·½Ê½ POST **/
-    private static final String REQUEST_METHOD_POST         = "POST";
+	/** è¯·æ±‚æ–¹å¼ GET **/
+	private static final String REQUEST_METHOD_GET = "GET";
 
-    /**
-     * ²ÉÓÃ Get ·½Ê½·¢³öHttpÇëÇó£¬ÒÔ GB2312 ±àÂë¸ñÊ½·¢ËÍÇëÇó
-     * @param urlAddress ÇëÇóµØÖ·£¨°üº¬²ÎÊý£©
-     * @return
-     */
-    public static String get(String urlAddress) {
-        return request(urlAddress, REQUEST_METHOD_GET, "", DEFAULT_ENCODING);
-    }
+	/** è¯·æ±‚æ–¹å¼ POST **/
+	private static final String REQUEST_METHOD_POST = "POST";
 
-    /**
-     * ²ÉÓÃ Get ·½Ê½·¢³öHttpÇëÇó
-     * @param urlAddress ÇëÇóµØÖ·£¨°üº¬²ÎÊý£©
-     * @param encoding ±àÂë¸ñÊ½
-     * @return
-     */
-    public static String get(String urlAddress, String encoding) {
-        return request(urlAddress, REQUEST_METHOD_GET, "", encoding);
-    }
+	/**
+	 * é‡‡ç”¨ Get æ–¹å¼å‘å‡ºHttpè¯·æ±‚ï¼Œä»¥ GB2312 ç¼–ç æ ¼å¼å‘é€è¯·æ±‚
+	 * 
+	 * @param urlAddress
+	 *            è¯·æ±‚åœ°å€ï¼ˆåŒ…å«å‚æ•°ï¼‰
+	 * @return
+	 */
+	public static String get(String urlAddress) {
+		return request(urlAddress, REQUEST_METHOD_GET, "", DEFAULT_ENCODING);
+	}
 
-    /**
-     * ²ÉÓÃ POST ·½Ê½·¢³öHttpÇëÇó
-     * @param urlAddress ÇëÇóµØÖ·
-     * @param params POST²ÎÊý
-     * @return
-     */
-    public static String post(String urlAddress, String params) {
-        return request(urlAddress, REQUEST_METHOD_POST, params,
-                DEFAULT_ENCODING);
-    }
+	/**
+	 * é‡‡ç”¨ Get æ–¹å¼å‘å‡ºHttpè¯·æ±‚
+	 * 
+	 * @param urlAddress
+	 *            è¯·æ±‚åœ°å€ï¼ˆåŒ…å«å‚æ•°ï¼‰
+	 * @param encoding
+	 *            ç¼–ç æ ¼å¼
+	 * @return
+	 */
+	public static String get(String urlAddress, String encoding) {
+		return request(urlAddress, REQUEST_METHOD_GET, "", encoding);
+	}
 
-    /**
-     * ²ÉÓÃ POST ·½Ê½·¢³öHttpÇëÇó
-     * @param urlAddress ÇëÇóµØÖ·
-     * @param params POST²ÎÊý
-     * @param encoding ±àÂë¸ñÊ½
-     * @return
-     */
-    public static String post(String urlAddress, String params, String encoding) {
-        return request(urlAddress, REQUEST_METHOD_POST, params, encoding);
-    }
+	/**
+	 * é‡‡ç”¨ POST æ–¹å¼å‘å‡ºHttpè¯·æ±‚
+	 * 
+	 * @param urlAddress
+	 *            è¯·æ±‚åœ°å€
+	 * @param params
+	 *            POSTå‚æ•°
+	 * @return
+	 */
+	public static String post(String urlAddress, String params) {
+		return request(urlAddress, REQUEST_METHOD_POST, params, DEFAULT_ENCODING);
+	}
 
-    /**
-     * ·¢³öHTTPÇëÇó
-     * @param urlAddress urlµØÖ·
-     * @param method ÇëÇó·½Ê½
-     * @param params POSTÇëÇó²ÎÊý
-     * @param encoding ±àÂë¸ñÊ½
-     * @return
-     */
-    private static String request(String urlAddress, String method,
-            String params, String encoding) {
-        URL url = null;
-        HttpURLConnection con = null;
-        BufferedReader in = null;
-        StringBuffer result = new StringBuffer();
-        try {
-            url = new URL(urlAddress);
-            con = (HttpURLConnection) url.openConnection();
+	/**
+	 * é‡‡ç”¨ POST æ–¹å¼å‘å‡ºHttpè¯·æ±‚
+	 * 
+	 * @param urlAddress
+	 *            è¯·æ±‚åœ°å€
+	 * @param params
+	 *            POSTå‚æ•°
+	 * @param encoding
+	 *            ç¼–ç æ ¼å¼
+	 * @return
+	 */
+	public static String post(String urlAddress, String params, String encoding) {
+		return request(urlAddress, REQUEST_METHOD_POST, params, encoding);
+	}
 
-            //Èç¹û²»ÉèÖÃ Accept-Encoding£¬²¿·ÖÍøÕ¾»áÊ¶±ðÎªÅÀ³æ³ÌÐò£¬²»ÄÜÕý³£·ÃÎÊ
-            con.setRequestProperty("Accept-Encoding", "gzip,deflate");
-            con.setConnectTimeout(DEFAULT_CONNECTION_TIME_OUT);
-            con.setReadTimeout(DEFAULT_READ_TIME_OUT);
-            con.setUseCaches(false);
+	/**
+	 * å‘å‡ºHTTPè¯·æ±‚
+	 * 
+	 * @param urlAddress
+	 *            urlåœ°å€
+	 * @param method
+	 *            è¯·æ±‚æ–¹å¼
+	 * @param params
+	 *            POSTè¯·æ±‚å‚æ•°
+	 * @param encoding
+	 *            ç¼–ç æ ¼å¼
+	 * @return
+	 */
+	private static String request(String urlAddress, String method, String params, String encoding) {
+		URL url = null;
+		HttpURLConnection con = null;
+		BufferedReader in = null;
+		StringBuffer result = new StringBuffer();
+		try {
+			url = new URL(urlAddress);
+			con = (HttpURLConnection) url.openConnection();
 
-            //Èç¹ûµ÷ÓÃ·½Ê½²»¶Ô£¬²¿·ÖÍøÕ¾²»ÄÜÕý³£·ÃÎÊ
-            con.setRequestMethod(method);
+			// å¦‚æžœä¸è®¾ç½® Accept-Encodingï¼Œéƒ¨åˆ†ç½‘ç«™ä¼šè¯†åˆ«ä¸ºçˆ¬è™«ç¨‹åºï¼Œä¸èƒ½æ­£å¸¸è®¿é—®
+			con.setRequestProperty("Accept-Encoding", "gzip,deflate");
+			con.setConnectTimeout(DEFAULT_CONNECTION_TIME_OUT);
+			con.setReadTimeout(DEFAULT_READ_TIME_OUT);
+			con.setUseCaches(false);
 
-            if (REQUEST_METHOD_POST.equals(method)) {
-                con.setDoOutput(true);
-                byte[] b = params.getBytes();
-                con.getOutputStream().write(b);
-                con.getOutputStream().flush();
-                con.getOutputStream().close();
-            } else {
-                con.setDoOutput(false);
-            }
+			// å¦‚æžœè°ƒç”¨æ–¹å¼ä¸å¯¹ï¼Œéƒ¨åˆ†ç½‘ç«™ä¸èƒ½æ­£å¸¸è®¿é—®
+			con.setRequestMethod(method);
 
-            //Èç¹û·µ»Ø½á¹ûÊÇ gzip Ñ¹ËõÊý¾Ý£¬½øÐÐÁ÷´¦Àí
-            if (null != con.getContentEncoding()
-                    && con.getContentEncoding().indexOf("gzip") > -1) {
-                GZIPInputStream gzin = new GZIPInputStream(con.getInputStream());
-                in = new BufferedReader(new InputStreamReader(gzin, encoding));
-            } else {
-                in = new BufferedReader(new InputStreamReader(
-                        con.getInputStream(), encoding));
-            }
+			if (REQUEST_METHOD_POST.equals(method)) {
+				con.setDoOutput(true);
+				byte[] b = params.getBytes();
+				con.getOutputStream().write(b);
+				con.getOutputStream().flush();
+				con.getOutputStream().close();
+			} else {
+				con.setDoOutput(false);
+			}
 
-            while (true) {
-                String line = in.readLine();
-                if (line == null) {
-                    break;
-                } else {
-                    result.append(line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-                if (con != null) {
-                    con.disconnect();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return result.toString();
-    }
-    /**
-     * 
-     * getFilebyUrl(Í¨¹ýurl »ñµÃÎÄ¼þ·þÎñÆ÷file) 
-     * @param response
-     * @param fileUrl  
-     * void 
-     * @exception
-     */
-    public static void getFilebyUrl(HttpServletResponse response,String fileUrl){
-    	URL url = null;  
-        InputStream is =null;  
-        try {  
-            url = new URL(fileUrl);  
-         } catch (MalformedURLException e) {  
-            e.printStackTrace();  
-         }  
-        try {  
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();//ÀûÓÃHttpURLConnection¶ÔÏó,ÎÒÃÇ¿ÉÒÔ´ÓÍøÂçÖÐ»ñÈ¡ÍøÒ³Êý¾Ý.   
-            conn.setDoInput(true);  
-            conn.connect();  
-            is = conn.getInputStream(); //µÃµ½ÍøÂç·µ»ØµÄÊäÈëÁ÷   
-            ServletOutputStream out = response.getOutputStream();
-            //Ñ­»·È¡³öÁ÷ÖÐµÄÊý¾Ý
-            byte[] b = new byte[1024];
-            int len;
-            while((len=is.read(b)) >0){
-          	  out.write(b,0,len);
-            }
-           response.setStatus( response.SC_OK );
-            response.flushBuffer();
-           out.close();
-           is.close();
-        } catch (IOException e) {  
-            e.printStackTrace();  
-       }
-    }
+			// å¦‚æžœè¿”å›žç»“æžœæ˜¯ gzip åŽ‹ç¼©æ•°æ®ï¼Œè¿›è¡Œæµå¤„ç†
+			if (null != con.getContentEncoding() && con.getContentEncoding().indexOf("gzip") > -1) {
+				GZIPInputStream gzin = new GZIPInputStream(con.getInputStream());
+				in = new BufferedReader(new InputStreamReader(gzin, encoding));
+			} else {
+				in = new BufferedReader(new InputStreamReader(con.getInputStream(), encoding));
+			}
+
+			while (true) {
+				String line = in.readLine();
+				if (line == null) {
+					break;
+				} else {
+					result.append(line);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+				if (con != null) {
+					con.disconnect();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return result.toString();
+	}
+
+	/**
+	 * 
+	 * getFilebyUrl(é€šè¿‡url èŽ·å¾—æ–‡ä»¶æœåŠ¡å™¨file) @param response @param fileUrl
+	 * void @exception
+	 */
+	public static void getFilebyUrl(HttpServletResponse response, String fileUrl) {
+		URL url = null;
+		InputStream is = null;
+		try {
+			url = new URL(fileUrl);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		try {
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();// åˆ©ç”¨HttpURLConnectionå¯¹è±¡,æˆ‘ä»¬å¯ä»¥ä»Žç½‘ç»œä¸­èŽ·å–ç½‘é¡µæ•°æ®.
+			conn.setDoInput(true);
+			conn.connect();
+			is = conn.getInputStream(); // å¾—åˆ°ç½‘ç»œè¿”å›žçš„è¾“å…¥æµ
+			ServletOutputStream out = response.getOutputStream();
+			// å¾ªçŽ¯å–å‡ºæµä¸­çš„æ•°æ®
+			byte[] b = new byte[1024];
+			int len;
+			while ((len = is.read(b)) > 0) {
+				out.write(b, 0, len);
+			}
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.flushBuffer();
+			out.close();
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

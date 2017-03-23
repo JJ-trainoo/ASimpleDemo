@@ -10,76 +10,76 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * ÈÕÆÚ¹¤¾ßÀà
+ * æ—¥æœŸå·¥å…·ç±»
  */
 public final class DateUtil {
 	/**
-	 * ½ûÖ¹ÊµÀı»¯
+	 * ç¦æ­¢å®ä¾‹åŒ–
 	 */
 	private DateUtil() {
 	}
 
 	/**
-	 * ÒÔÏÂÎªÈÕÆÚ×ª»»µÄ¸ñÊ½ Ä¬ÈÏ·½Ê½
+	 * ä»¥ä¸‹ä¸ºæ—¥æœŸè½¬æ¢çš„æ ¼å¼ é»˜è®¤æ–¹å¼
 	 */
 	public static final String YMD_DATA = "yyyy-MM-dd";
 	public static final String yyyyMMdd = "yyyyMMdd";
-	/** ÈÕÆÚ¸ñÊ½ **/
+	/** æ—¥æœŸæ ¼å¼ **/
 	public static final String YMD01_DATA = "yyyy/MM/dd";
 
-	/** ÈÕÆÚ¸ñÊ½ **/
+	/** æ—¥æœŸæ ¼å¼ **/
 	public static final String YMDHMS_DATA = "yyyy-MM-dd HH:mm:ss";
 
-	/** ÈÕÆÚ¸ñÊ½ **/
+	/** æ—¥æœŸæ ¼å¼ **/
 	public static final String YMDSTRING_DATA = "yyyyMMddHHmmss";
 
-	/** ÈÕÆÚ¸ñÊ½ **/
-	public static final String YMDGB_DATA = "yyyyÄêMMÔÂddÈÕ";
+	/** æ—¥æœŸæ ¼å¼ **/
+	public static final String YMDGB_DATA = "yyyyå¹´MMæœˆddæ—¥";
 
-	/** ÈÕÆÚ¸ñÊ½ **/
-	public static final String YMDTHMSGB_DATA = "yyyyÄêMMÔÂddÈÕ HHÊ±mm·ÖssÃë";
+	/** æ—¥æœŸæ ¼å¼ **/
+	public static final String YMDTHMSGB_DATA = "yyyyå¹´MMæœˆddæ—¥ HHæ—¶mmåˆ†ssç§’";
 
-	/** ÈÕÆÚ¸ñÊ½ **/
+	/** æ—¥æœŸæ ¼å¼ **/
 	public static final String YMD24H_DATA = "yyyy-MM-dd HH:mm:ss";
 
-	/** ĞÇÆÚÖĞÎÄ±íÊ¾ */
-	public static final String[] DAYNAMES = { "ĞÇÆÚÈÕ", "ĞÇÆÚÒ»", "ĞÇÆÚ¶ş", "ĞÇÆÚÈı",
-			"ĞÇÆÚËÄ", "ĞÇÆÚÎå", "ĞÇÆÚÁù" };
+	/** æ˜ŸæœŸä¸­æ–‡è¡¨ç¤º */
+	public static final String[] DAYNAMES = { "æ˜ŸæœŸæ—¥", "æ˜ŸæœŸä¸€", "æ˜ŸæœŸäºŒ", "æ˜ŸæœŸä¸‰",
+			"æ˜ŸæœŸå››", "æ˜ŸæœŸäº”", "æ˜ŸæœŸå…­" };
 
-	/** Ò»ÌìµÄºÁÃëÊı **/
+	/** ä¸€å¤©çš„æ¯«ç§’æ•° **/
 	public static final int ONE_DATE_MILLISECOND = 24 * 60 * 60 * 1000;
 
 	/**
-	 * »ñÈ¡µ±Ç°Äê·İ
+	 * è·å–å½“å‰å¹´ä»½
 	 * 
-	 * @return µ±Ç°Äê·İ
+	 * @return å½“å‰å¹´ä»½
 	 */
 	public static int getYear() {
 		return Calendar.getInstance().get(Calendar.YEAR);
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÔÂ·İ
+	 * è·å–å½“å‰æœˆä»½
 	 * 
-	 * @return µ±Ç°ÔÂ·İ
+	 * @return å½“å‰æœˆä»½
 	 */
 	public static int getMonth() {
 		return Calendar.getInstance().get(Calendar.MONTH);
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÈÕÆÚ£¨Ìì£©
+	 * è·å–å½“å‰æ—¥æœŸï¼ˆå¤©ï¼‰
 	 * 
-	 * @return µ±Ç°ÔÂ·İ
+	 * @return å½“å‰æœˆä»½
 	 */
 	public static int getDayOfMonth() {
 		return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 	}
 
 	/**
-	 * »ñÈ¡ÖĞÎÄĞÇÆÚ(ĞÇÆÚÒ»¡¢ĞÇÆÚ¶ş....)
+	 * è·å–ä¸­æ–‡æ˜ŸæœŸ
 	 * 
-	 * @return ÖĞÎÄĞÇÆÚ
+	 * @return ä¸­æ–‡æ˜ŸæœŸ
 	 */
 	public static String getDayOfWeek() {
 		Calendar calendar = Calendar.getInstance();
@@ -89,10 +89,10 @@ public final class DateUtil {
 
 	/**
 	 * 
-	 * getDateWeek(·µ»ØÖ¸¶¨ÈÕÆÚµÄĞÇÆÚ 0,1,2,3,4,5,6)
+	 * getDateWeek(è¿”å›æŒ‡å®šæ—¥æœŸçš„æ˜ŸæœŸ 0,1,2,3,4,5,6)
 	 * 
 	 * @param date
-	 *            Ö¸¶¨ÈÕÆÚ¸ñÊ½Îª YYYY-MM-DD
+	 *            æŒ‡å®šæ—¥æœŸæ ¼å¼ä¸º YYYY-MM-DD
 	 * @return String
 	 * @exception
 	 */
@@ -104,20 +104,20 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼äÈÕÆÚ±íÊ¾£¬¸ñÊ½ YYYY-MM-DD
+	 * è·å–å½“å‰æ—¶é—´æ—¥æœŸè¡¨ç¤ºï¼Œæ ¼å¼ YYYY-MM-DD
 	 * 
-	 * @return µ±Ç°Ê±¼äÈÕÆÚ±íÊ¾£¬¸ñÊ½ YYYY-MM-DD
+	 * @return å½“å‰æ—¶é—´æ—¥æœŸè¡¨ç¤ºï¼Œæ ¼å¼ YYYY-MM-DD
 	 */
 	public static String getYMD() {
 		return getYMD("-");
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼äÓ¢ÎÄÈÕÆÚ±íÊ¾£¬¸ñÊ½ YYYYÄêMMÔÂDDÈÕ
+	 * è·å–å½“å‰æ—¶é—´ä¸­æ–‡æ—¥æœŸè¡¨ç¤ºï¼Œæ ¼å¼ YYYYå¹´MMæœˆDDæ—¥
 	 * 
-	 * @param ·Ö¸î·û
-	 *            £¬Èç£º¡°/¡±£¬¡°-¡±£¬¡°.¡±£¬¡°¡±
-	 * @return µ±Ç°Ê±¼äÓ¢ÎÄÈÕÆÚ±íÊ¾£¬¸ñÊ½ YYYY?MM?DD?
+	 * @param åˆ†å‰²ç¬¦
+	 *            ï¼Œå¦‚ï¼šâ€œ/â€ï¼Œâ€œ-â€ï¼Œâ€œ.â€ï¼Œâ€œâ€
+	 * @return å½“å‰æ—¶é—´ä¸­æ–‡æ—¥æœŸè¡¨ç¤ºï¼Œæ ¼å¼ YYYYå¹´MMæœˆDDæ—¥
 	 */
 	public static String getYMD(String separator) {
 		Calendar now = Calendar.getInstance();
@@ -127,18 +127,18 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°Ê±¼äÖĞÎÄÈÕÆÚ±íÊ¾£¬¸ñÊ½ YYYYÄêMMÔÂDDÈÕ
+	 * è·å–å½“å‰æ—¶é—´ä¸­æ–‡æ—¥æœŸè¡¨ç¤ºï¼Œæ ¼å¼ YYYYå¹´MMæœˆDDæ—¥
 	 * 
-	 * @return µ±Ç°Ê±¼äÖĞÎÄÈÕÆÚ±íÊ¾£¬¸ñÊ½ YYYYÄêMMÔÂDDÈÕ
+	 * @return å½“å‰æ—¶é—´ä¸­æ–‡æ—¥æœŸè¡¨ç¤ºï¼Œæ ¼å¼ YYYYå¹´MMæœˆDDæ—¥
 	 */
 	public static String getYMD_CN() {
 		Calendar now = Calendar.getInstance();
-		return now.get(Calendar.YEAR) + "Äê" + (now.get(Calendar.MONTH) + 1)
-				+ "ÔÂ" + now.get(Calendar.DAY_OF_MONTH) + "ÈÕ";
+		return now.get(Calendar.YEAR) + "å¹´" + (now.get(Calendar.MONTH) + 1)
+				+ "æœˆ" + now.get(Calendar.DAY_OF_MONTH) + "æ—¥";
 	}
 
 	/**
-	 * ½« Date ¶ÔÏó×ª»»ÎªÖÆ¶¨¸ñÊ½×Ö·û´®
+	 * å°† Date å¯¹è±¡è½¬æ¢ä¸ºåˆ¶å®šæ ¼å¼å­—ç¬¦ä¸²
 	 * 
 	 * @param date
 	 * @param format
@@ -158,7 +158,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * ½« Calendar ¶ÔÏó×ª»»ÎªÖÆ¶¨¸ñÊ½×Ö·û´®
+	 * å°† Calendar å¯¹è±¡è½¬æ¢ä¸ºåˆ¶å®šæ ¼å¼å­—ç¬¦ä¸²
 	 * 
 	 * @param calendar
 	 * @param format
@@ -168,13 +168,23 @@ public final class DateUtil {
 		return getDateFormat(calendar.getTime(), format);
 	}
 
+	/**
+	 * è·å–ä¸­æ–‡æ˜ŸæœŸ
+	 * 
+	 * @return ä¸­æ–‡æ˜ŸæœŸ
+	 */
+	public static String getDay() {
+		Calendar calendar = Calendar.getInstance();
+		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+		return DAYNAMES[dayOfWeek - 1];
+	}
 
 	/**
-	 * ½« ÈÕÆÚ×Ö·û´®×ªÎª Date ¶ÔÏó
+	 * å°† æ—¥æœŸå­—ç¬¦ä¸²è½¬ä¸º Date å¯¹è±¡
 	 * 
 	 * @param dateStr
 	 * @param format
-	 * @return Date ÀàĞÍÊ±¼ä
+	 * @return Date ç±»å‹æ—¶é—´
 	 */
 	public static Date parseDate(String dateStr, String format) {
 		if (dateStr == null || dateStr.length() == 0) {
@@ -193,7 +203,7 @@ public final class DateUtil {
 
 	/**
 	 * 
-	 * getToday(»ñÈ¡µ±Ç°ÈÕÆÚ£¬²»°üº¬Ê±·ÖÃë) (ÕâÀïÃèÊöÕâ¸ö·½·¨ÊÊÓÃÌõ¼ş ¨C ¿ÉÑ¡)
+	 * getToday(è·å–å½“å‰æ—¥æœŸï¼Œä¸åŒ…å«æ—¶åˆ†ç§’) (è¿™é‡Œæè¿°è¿™ä¸ªæ–¹æ³•é€‚ç”¨æ¡ä»¶ â€“ å¯é€‰)
 	 * 
 	 * @return Date
 	 * @exception
@@ -209,7 +219,7 @@ public final class DateUtil {
 
 	/**
 	 * 
-	 * getDayDiff(¼ÆËãÁ½¸öÈÕÆÚÏà²îÌìÊı£ºend - start) (ÕâÀïÃèÊöÕâ¸ö·½·¨ÊÊÓÃÌõ¼ş ¨C ¿ÉÑ¡)
+	 * getDayDiff(è®¡ç®—ä¸¤ä¸ªæ—¥æœŸç›¸å·®å¤©æ•°ï¼šend - start) (è¿™é‡Œæè¿°è¿™ä¸ªæ–¹æ³•é€‚ç”¨æ¡ä»¶ â€“ å¯é€‰)
 	 * 
 	 * @param date1
 	 * @param date2
@@ -221,7 +231,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÔÂµÄµÚÒ»Ìì
+	 * è·å–å½“å‰æœˆçš„ç¬¬ä¸€å¤©
 	 * 
 	 * @return
 	 */
@@ -234,7 +244,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñÈ¡¶ÔÓ¦ÔÂ·İµÄ×îºóÒ»Ìì
+	 * è·å–å¯¹åº”æœˆä»½çš„æœ€åä¸€å¤©
 	 * 
 	 * @param date
 	 * @return
@@ -257,7 +267,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñÈ¡×î½üÈı¸öÔÂ
+	 * è·å–æœ€è¿‘ä¸‰ä¸ªæœˆ
 	 * 
 	 * @param date
 	 * @return
@@ -267,13 +277,13 @@ public final class DateUtil {
 		for (int i = 1; i > -2; i--) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.add(Calendar.MONTH, i);
-			// Ìí¼ÓÅĞ¶Ï calendar ÔÂ·İÎª0 Ê±ºòµÄÔÂ·İ ÄêÔÂ
+			// æ·»åŠ åˆ¤æ–­ calendar æœˆä»½ä¸º0 æ—¶å€™çš„æœˆä»½ å¹´æœˆ
 			if (calendar.get(Calendar.MONTH) == 0) {
 				int year = calendar.get(Calendar.YEAR) - 1;
-				map.put(year + "Äê" + "12ÔÂ", year + "-12" + "-01");
+				map.put(year + "å¹´" + "12æœˆ", year + "-12" + "-01");
 			} else {
-				map.put(calendar.get(Calendar.YEAR) + "Äê"
-						+ calendar.get(Calendar.MONTH) + "ÔÂ",
+				map.put(calendar.get(Calendar.YEAR) + "å¹´"
+						+ calendar.get(Calendar.MONTH) + "æœˆ",
 						calendar.get(Calendar.YEAR) + "-"
 								+ calendar.get(Calendar.MONTH) + "-01");
 			}
@@ -282,7 +292,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñµÃµ±Ìì¿ªÊ¼Ê±¼ä
+	 * è·å¾—å½“å¤©å¼€å§‹æ—¶é—´
 	 * 
 	 * @param date
 	 * @return
@@ -299,7 +309,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñµÃµ±Ìì»òÄ³ÌìµÄ¼¸ÌìºóµÄÊ±¼ä
+	 * è·å¾—å½“å¤©æˆ–æŸå¤©çš„å‡ å¤©åçš„æ—¶é—´
 	 * 
 	 * @param date
 	 * @return
@@ -315,7 +325,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñµÃ¼¸·ÖÖÓÇ°µÄÊ±¼ä
+	 * è·å¾—å‡ åˆ†é’Ÿå‰çš„æ—¶é—´
 	 * 
 	 * @param timestr
 	 * @param minutes
@@ -332,7 +342,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñµÃµ±Ìì»òÄ³ÌìµÄ¼¸¸öÔÂºóµÄÊ±¼ä
+	 * è·å¾—å½“å¤©æˆ–æŸå¤©çš„å‡ ä¸ªæœˆåçš„æ—¶é—´
 	 * 
 	 * @param date
 	 * @return
@@ -354,7 +364,7 @@ public final class DateUtil {
 	}
 
 	/**
-	 * »ñµÃµ±ÌìµÄ½áÊøÊ±¼ä
+	 * è·å¾—å½“å¤©çš„ç»“æŸæ—¶é—´
 	 * 
 	 * @param date
 	 * @return
@@ -371,7 +381,7 @@ public final class DateUtil {
 		return calendar.getTime();
 	}
     /**
-     *  »ñµÃÄ³ÔÂ×îºóÒ»Ìì
+     *  è·å¾—æŸæœˆæœ€åä¸€å¤©
      * @param year
      * @param month
      * @return
@@ -384,7 +394,7 @@ public final class DateUtil {
 		return new SimpleDateFormat("yyyy-MM-dd ").format(cal.getTime());
 	}
     /**
-     * »ñµÃÄ³ÔÂµÚÒ»Ìì
+     * è·å¾—æŸæœˆç¬¬ä¸€å¤©
      * @param year
      * @param month
      * @return
@@ -399,7 +409,7 @@ public final class DateUtil {
 	
 	
 	/**
-	 * ¼ÆËã½ñÌìÈÕÆÚ
+	 * è®¡ç®—ä»Šå¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String toDay(){
@@ -410,7 +420,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã×òÌìÈÕÆÚ
+	 * è®¡ç®—æ˜¨å¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String yeasterday(){
@@ -421,7 +431,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÇ°ÌìÈÕÆÚ
+	 * è®¡ç®—å‰å¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String yeasterdayTwo(){
@@ -431,7 +441,7 @@ public final class DateUtil {
 		return yesterday;
 	}
 	/**
-	 * ¼ÆËã nÌìÇ°  ÈÕÆÚ
+	 * è®¡ç®— nå¤©å‰  æ—¥æœŸ
 	 * @return
 	 */
 	public static String dateofNumbDays(int n){
@@ -443,35 +453,35 @@ public final class DateUtil {
 	
 	
 	/**
-	 * ¼ÆËãÉÏ¸öÔÂµÚÒ»Ìì
+	 * è®¡ç®—ä¸Šä¸ªæœˆç¬¬ä¸€å¤©
 	 * @return
 	 */
 	public static String firstDayOfLastMonth() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, -1);
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// ¶¨Òå¸ñÊ½
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// å®šä¹‰æ ¼å¼
 		String str = df.format(calendar.getTime());
 		return str;
 
 	}
 	
 	/**
-	 * ¼ÆËãn ÔÂÇ°µÚÒ»Ìì
+	 * è®¡ç®—n æœˆå‰ç¬¬ä¸€å¤©
 	 * @return
 	 */
 	public static String firstDayToNumbMonth(int months) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MONTH, - 1*months);
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// ¶¨Òå¸ñÊ½
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// å®šä¹‰æ ¼å¼
 		String str = df.format(calendar.getTime());
 		return str;
 
 	}
 
 	/**
-	 * ¼ÆËãÉÏ¸öÔÂ×îºóÒ»Ìì
+	 * è®¡ç®—ä¸Šä¸ªæœˆæœ€åä¸€å¤©
 	 * @return
 	 */
 	public static String lastDayOfLastMonth() {
@@ -480,13 +490,13 @@ public final class DateUtil {
 		int month = calendar.get(Calendar.MONTH);
 		calendar.set(Calendar.MONTH, month-1);
 		calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));  
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// ¶¨Òå¸ñÊ½£¬²»ÏÔÊ¾ºÁÃë
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// å®šä¹‰æ ¼å¼ï¼Œä¸æ˜¾ç¤ºæ¯«ç§’
 		String str = sdf.format(calendar.getTime()); 
 		return str;
 	}
 	
 	/**
-	 * ¼ÆËãNÔÂÇ°×îºóÒ»Ìì
+	 * è®¡ç®—Næœˆå‰æœ€åä¸€å¤©
 	 * @return
 	 */
 	public static String lastDayToNumbMonth(int months) {
@@ -495,27 +505,27 @@ public final class DateUtil {
 		int month = calendar.get(Calendar.MONTH);
 		calendar.set(Calendar.MONTH, month-1*months);
 		calendar.set(Calendar.DAY_OF_MONTH,calendar.getActualMaximum(Calendar.DAY_OF_MONTH));  
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// ¶¨Òå¸ñÊ½£¬²»ÏÔÊ¾ºÁÃë
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// å®šä¹‰æ ¼å¼ï¼Œä¸æ˜¾ç¤ºæ¯«ç§’
 		String str = sdf.format(calendar.getTime()); 
 		return str;
 	}
 	
 	/**
-	 * ¼ÆËãÉÏ¸öÀñ°İÖÜÒ»ËùÔÚÈÕÆÚ
+	 * è®¡ç®—ä¸Šä¸ªç¤¼æ‹œå‘¨ä¸€æ‰€åœ¨æ—¥æœŸ
 	 */
 	public static String firstDayOfLastWeek(){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // ÉèÖÃÊ±¼ä¸ñÊ½
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // è®¾ç½®æ—¶é—´æ ¼å¼
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		// ÅĞ¶ÏÒª¼ÆËãµÄÈÕÆÚÊÇ·ñÊÇÖÜÈÕ£¬Èç¹ûÊÇÔò¼õÒ»Ìì¼ÆËãÖÜÁùµÄ£¬·ñÔò»á³öÎÊÌâ£¬¼ÆËãµ½ÏÂÒ»ÖÜÈ¥ÁË
-		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
+		// åˆ¤æ–­è¦è®¡ç®—çš„æ—¥æœŸæ˜¯å¦æ˜¯å‘¨æ—¥ï¼Œå¦‚æœæ˜¯åˆ™å‡ä¸€å¤©è®¡ç®—å‘¨å…­çš„ï¼Œå¦åˆ™ä¼šå‡ºé—®é¢˜ï¼Œè®¡ç®—åˆ°ä¸‹ä¸€å‘¨å»äº†
+		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
 		if (1 == dayWeek) {
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 		}
-		cal.setFirstDayOfWeek(Calendar.MONDAY);// ÉèÖÃÒ»¸öĞÇÆÚµÄµÚÒ»Ìì£¬°´ÖĞ¹úµÄÏ°¹ßÒ»¸öĞÇÆÚµÄµÚÒ»ÌìÊÇĞÇÆÚÒ»
-		int day = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
-		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7);// ¸ù¾İÈÕÀúµÄ¹æÔò£¬¸øµ±Ç°ÈÕÆÚ¼õÈ¥ĞÇÆÚ¼¸ÓëÒ»¸öĞÇÆÚµÚÒ»ÌìµÄ²îÖµ
+		cal.setFirstDayOfWeek(Calendar.MONDAY);// è®¾ç½®ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©ï¼ŒæŒ‰ä¸­å›½çš„ä¹ æƒ¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©æ˜¯æ˜ŸæœŸä¸€
+		int day = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
+		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7);// æ ¹æ®æ—¥å†çš„è§„åˆ™ï¼Œç»™å½“å‰æ—¥æœŸå‡å»æ˜ŸæœŸå‡ ä¸ä¸€ä¸ªæ˜ŸæœŸç¬¬ä¸€å¤©çš„å·®å€¼
 		
 		String imptimeBegin = sdf.format(cal.getTime());
 		return imptimeBegin;
@@ -523,21 +533,21 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã NĞÇÆÚ Ç° ÖÜÒ»
+	 * è®¡ç®— Næ˜ŸæœŸ å‰ å‘¨ä¸€
 	 */
 	public static String firstdaytoNumWeek(int weeks){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // ÉèÖÃÊ±¼ä¸ñÊ½
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // è®¾ç½®æ—¶é—´æ ¼å¼
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		// ÅĞ¶ÏÒª¼ÆËãµÄÈÕÆÚÊÇ·ñÊÇÖÜÈÕ£¬Èç¹ûÊÇÔò¼õÒ»Ìì¼ÆËãÖÜÁùµÄ£¬·ñÔò»á³öÎÊÌâ£¬¼ÆËãµ½ÏÂÒ»ÖÜÈ¥ÁË
-		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
+		// åˆ¤æ–­è¦è®¡ç®—çš„æ—¥æœŸæ˜¯å¦æ˜¯å‘¨æ—¥ï¼Œå¦‚æœæ˜¯åˆ™å‡ä¸€å¤©è®¡ç®—å‘¨å…­çš„ï¼Œå¦åˆ™ä¼šå‡ºé—®é¢˜ï¼Œè®¡ç®—åˆ°ä¸‹ä¸€å‘¨å»äº†
+		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
 		if (1 == dayWeek) {
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 		}
-		cal.setFirstDayOfWeek(Calendar.MONDAY);// ÉèÖÃÒ»¸öĞÇÆÚµÄµÚÒ»Ìì£¬°´ÖĞ¹úµÄÏ°¹ßÒ»¸öĞÇÆÚµÄµÚÒ»ÌìÊÇĞÇÆÚÒ»
-		int day = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
-		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7*weeks);// ¸ù¾İÈÕÀúµÄ¹æÔò£¬¸øµ±Ç°ÈÕÆÚ¼õÈ¥ĞÇÆÚ¼¸ÓëÒ»¸öĞÇÆÚµÚÒ»ÌìµÄ²îÖµ
+		cal.setFirstDayOfWeek(Calendar.MONDAY);// è®¾ç½®ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©ï¼ŒæŒ‰ä¸­å›½çš„ä¹ æƒ¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©æ˜¯æ˜ŸæœŸä¸€
+		int day = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
+		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7*weeks);// æ ¹æ®æ—¥å†çš„è§„åˆ™ï¼Œç»™å½“å‰æ—¥æœŸå‡å»æ˜ŸæœŸå‡ ä¸ä¸€ä¸ªæ˜ŸæœŸç¬¬ä¸€å¤©çš„å·®å€¼
 		
 		String imptimeBegin = sdf.format(cal.getTime());
 		return imptimeBegin;
@@ -545,21 +555,21 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÉÏ¸öÀñ°İÖÜÈÕËùÔÚÈÕÆÚ
+	 * è®¡ç®—ä¸Šä¸ªç¤¼æ‹œå‘¨æ—¥æ‰€åœ¨æ—¥æœŸ
 	 */
 	public static String lastDayOfLastWeek(){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // ÉèÖÃÊ±¼ä¸ñÊ½
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // è®¾ç½®æ—¶é—´æ ¼å¼
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		// ÅĞ¶ÏÒª¼ÆËãµÄÈÕÆÚÊÇ·ñÊÇÖÜÈÕ£¬Èç¹ûÊÇÔò¼õÒ»Ìì¼ÆËãÖÜÁùµÄ£¬·ñÔò»á³öÎÊÌâ£¬¼ÆËãµ½ÏÂÒ»ÖÜÈ¥ÁË
-		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
+		// åˆ¤æ–­è¦è®¡ç®—çš„æ—¥æœŸæ˜¯å¦æ˜¯å‘¨æ—¥ï¼Œå¦‚æœæ˜¯åˆ™å‡ä¸€å¤©è®¡ç®—å‘¨å…­çš„ï¼Œå¦åˆ™ä¼šå‡ºé—®é¢˜ï¼Œè®¡ç®—åˆ°ä¸‹ä¸€å‘¨å»äº†
+		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
 		if (1 == dayWeek) {
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 		}
-		cal.setFirstDayOfWeek(Calendar.MONDAY);	// ÉèÖÃÒ»¸öĞÇÆÚµÄµÚÒ»Ìì£¬°´ÖĞ¹úµÄÏ°¹ßÒ»¸öĞÇÆÚµÄµÚÒ»ÌìÊÇĞÇÆÚÒ»
-		int day = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
-		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7);// ¸ù¾İÈÕÀúµÄ¹æÔò£¬¸øµ±Ç°ÈÕÆÚ¼õÈ¥ĞÇÆÚ¼¸ÓëÒ»¸öĞÇÆÚµÚÒ»ÌìµÄ²îÖµ
+		cal.setFirstDayOfWeek(Calendar.MONDAY);	// è®¾ç½®ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©ï¼ŒæŒ‰ä¸­å›½çš„ä¹ æƒ¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©æ˜¯æ˜ŸæœŸä¸€
+		int day = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
+		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7);// æ ¹æ®æ—¥å†çš„è§„åˆ™ï¼Œç»™å½“å‰æ—¥æœŸå‡å»æ˜ŸæœŸå‡ ä¸ä¸€ä¸ªæ˜ŸæœŸç¬¬ä¸€å¤©çš„å·®å€¼
 		
 		cal.add(Calendar.DATE, 6);
 		String imptimeEnd = sdf.format(cal.getTime());
@@ -568,21 +578,21 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã NĞÇÆÚ Ç° ÖÜÈÕ
+	 * è®¡ç®— Næ˜ŸæœŸ å‰ å‘¨æ—¥
 	 */
 	public static String lastDaytoNumWeek(int weeks){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // ÉèÖÃÊ±¼ä¸ñÊ½
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // è®¾ç½®æ—¶é—´æ ¼å¼
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		// ÅĞ¶ÏÒª¼ÆËãµÄÈÕÆÚÊÇ·ñÊÇÖÜÈÕ£¬Èç¹ûÊÇÔò¼õÒ»Ìì¼ÆËãÖÜÁùµÄ£¬·ñÔò»á³öÎÊÌâ£¬¼ÆËãµ½ÏÂÒ»ÖÜÈ¥ÁË
-		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
+		// åˆ¤æ–­è¦è®¡ç®—çš„æ—¥æœŸæ˜¯å¦æ˜¯å‘¨æ—¥ï¼Œå¦‚æœæ˜¯åˆ™å‡ä¸€å¤©è®¡ç®—å‘¨å…­çš„ï¼Œå¦åˆ™ä¼šå‡ºé—®é¢˜ï¼Œè®¡ç®—åˆ°ä¸‹ä¸€å‘¨å»äº†
+		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
 		if (1 == dayWeek) {
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 		}
-		cal.setFirstDayOfWeek(Calendar.MONDAY);	// ÉèÖÃÒ»¸öĞÇÆÚµÄµÚÒ»Ìì£¬°´ÖĞ¹úµÄÏ°¹ßÒ»¸öĞÇÆÚµÄµÚÒ»ÌìÊÇĞÇÆÚÒ»
-		int day = cal.get(Calendar.DAY_OF_WEEK);// »ñµÃµ±Ç°ÈÕÆÚÊÇÒ»¸öĞÇÆÚµÄµÚ¼¸Ìì
-		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7*weeks);// ¸ù¾İÈÕÀúµÄ¹æÔò£¬¸øµ±Ç°ÈÕÆÚ¼õÈ¥ĞÇÆÚ¼¸ÓëÒ»¸öĞÇÆÚµÚÒ»ÌìµÄ²îÖµ
+		cal.setFirstDayOfWeek(Calendar.MONDAY);	// è®¾ç½®ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©ï¼ŒæŒ‰ä¸­å›½çš„ä¹ æƒ¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬ä¸€å¤©æ˜¯æ˜ŸæœŸä¸€
+		int day = cal.get(Calendar.DAY_OF_WEEK);// è·å¾—å½“å‰æ—¥æœŸæ˜¯ä¸€ä¸ªæ˜ŸæœŸçš„ç¬¬å‡ å¤©
+		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day-7*weeks);// æ ¹æ®æ—¥å†çš„è§„åˆ™ï¼Œç»™å½“å‰æ—¥æœŸå‡å»æ˜ŸæœŸå‡ ä¸ä¸€ä¸ªæ˜ŸæœŸç¬¬ä¸€å¤©çš„å·®å€¼
 		
 		cal.add(Calendar.DATE, 6);
 		String imptimeEnd = sdf.format(cal.getTime());
@@ -591,7 +601,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÉÏ¸ö¼¾¶ÈµÚÒ»Ìì
+	 * è®¡ç®—ä¸Šä¸ªå­£åº¦ç¬¬ä¸€å¤©
 	 * @return
 	 */
 	public static String lastSeasonFirstDate() {
@@ -616,14 +626,14 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã N¼¾¶ÈÇ° µÚÒ»Ìì
+	 * è®¡ç®— Nå­£åº¦å‰ ç¬¬ä¸€å¤©
 	 * @return
 	 */
 	public static String FirstDateOfNumbSeason(int seas) {
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(cal.MONTH, -(seas-1)*3);
+		cal.add(Calendar.MONTH, -(seas-1)*3);
 		int curMonth = cal.get(Calendar.MONTH)+1;
 		int curYear = cal.get(Calendar.YEAR);
 		String lastSeasonFirstDate = "";
@@ -641,14 +651,14 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã N¼¾¶ÈÇ° Ä©Ìì
+	 * è®¡ç®— Nå­£åº¦å‰ æœ«å¤©
 	 * @return
 	 */
 	public static String lastDateOfNumbSeason(int seas) {
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		cal.add(cal.MONTH, -(seas-1)*3);
+		cal.add(Calendar.MONTH, -(seas-1)*3);
 		int curMonth = cal.get(Calendar.MONTH)+1;
 		int curYear = cal.get(Calendar.YEAR);
 		String lastSeasonLastDate = "";
@@ -666,7 +676,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÉÏ¸ö¼¾¶ÈÄ©Ìì
+	 * è®¡ç®—ä¸Šä¸ªå­£åº¦æœ«å¤©
 	 * @return
 	 */
 	public static String lastSeasonLastDate() {
@@ -689,7 +699,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÈ¥ÄêµÚÒ»ÌìÈÕÆÚ
+	 * è®¡ç®—å»å¹´ç¬¬ä¸€å¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String lastYeatFirstDate(){
@@ -703,7 +713,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã nÄêÇ° µÚÒ»ÌìÈÕÆÚ
+	 * è®¡ç®— nå¹´å‰ ç¬¬ä¸€å¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String firstDateOfNumbYear(int years){
@@ -714,7 +724,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËã nÄêÇ° ×îºóÒ»ÌìÈÕÆÚ
+	 * è®¡ç®— nå¹´å‰ æœ€åä¸€å¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String LastDateOfNumbYear(int years){
@@ -725,7 +735,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ¼ÆËãÈ¥Äê×îºóÒ»ÌìÈÕÆÚ
+	 * è®¡ç®—å»å¹´æœ€åä¸€å¤©æ—¥æœŸ
 	 * @return
 	 */
 	public static String lastYeatLastDate(){
@@ -740,7 +750,7 @@ public final class DateUtil {
 	
 	
 	/**
-	 * ³ı·¨¼ÆËãint , µÃµ½ °Ù·Ö±È
+	 * é™¤æ³•è®¡ç®—int , å¾—åˆ° ç™¾åˆ†æ¯”
 	 */
 	public  static double getdivPercent(int divisor, int dividend) {
 		double result = 0.00;
@@ -753,7 +763,7 @@ public final class DateUtil {
 	}
 	
 	/**
-	 * ³ı·¨¼ÆËãint , µÃµ½double
+	 * é™¤æ³•è®¡ç®—int , å¾—åˆ°double
 	 */
 	public  static double getdivDouble(int divisor, int dividend) {
 		double result = 0.00;
