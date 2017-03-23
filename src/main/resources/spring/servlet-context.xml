@@ -6,14 +6,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-      
+    
+	<!-- 此处为 spring MVC 配置文件   ，spring 配置文件见：spring-context.xml  -->
+
     <!-- 启用MVC注解 -->
     <mvc:annotation-driven />
 	
 	<!-- 指定Sping组件扫描的基本包路径 -->
-	<context:component-scan base-package="com.trainoo.**">
-	    <!-- 如果分开配置Service的扫描的话，加上如下配置，这里只扫描Controller，不可重复加载Service  -->
-		<!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />  -->
+	<context:component-scan base-package="com.trainoo.**" use-default-filters="false">
+	    <!-- spring跟springMVC分开配置，所以此处只扫描Controller  -->
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
 	</context:component-scan>
 	
 	<!-- 静态资源文件，不会被Spring MVC拦截  cache-period:缓存一年 -->

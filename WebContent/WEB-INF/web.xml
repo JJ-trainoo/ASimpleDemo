@@ -1,24 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" 
-	xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">  
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<!-- 这个地方默认加载的是系统的变量的配置文件，它们属于是系统级别的配置 -->
 	
-	<welcome-file-list>
-    	<welcome-file>index.html</welcome-file>
-  	</welcome-file-list>
-  	
+	<!-- spring 应用上下文配置 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- 这个地方加载的是 servlet 的变量的配置文件，它们属于 controller 级别的配置 
+		1.如果不配置这个 servlet-context.xml的配置文件位置，那么默认就会去/WEB-INF/servlet-context.xml 下面去寻找这个文件 
+		2.如果配置了这个位置，那么它就会去制定位置加载文件 -->
+		
+	<!-- springMVC 的前端控制器 -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml" -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<!-- 展示监控页面的servlet -->
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>  
+
 	<!-- ip名片 -->
 	<servlet>
-  		<servlet-name>netcard</servlet-name>
-  		<servlet-class>com.trainoo.netcard.netCardServlet</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-  		<servlet-name>netcard</servlet-name>
-  		<url-pattern>/netcard</url-pattern>
-  	</servlet-mapping>
-  	
+		<servlet-name>netcard</servlet-name>
+		<servlet-class>com.trainoo.netcard.netCardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>netcard</servlet-name>
+		<url-pattern>/netcard</url-pattern>
+	</servlet-mapping>
+
+
 	<!-- 解决post乱码 -->
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
@@ -32,23 +69,9 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-  	
-  	
-  	<!-- springmvc的前端控制器 -->
- 	<servlet>
-		<servlet-name>ASimpleDemo</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!--  contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml"-->
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-servlet.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ASimpleDemo</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-	
-	
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
 </web-app>

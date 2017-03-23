@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.trainoo.druid.DruidMapper">
+
+	<select id="queryTest" resultType="Integer">
+		select count(1) from testtable
+	</select>
+	
+	<select id="queryDetail" resultType="hashmap">
+		select * from testtable order by id
+	</select>
+	
+	<insert id="insertData" parameterType="java.lang.String">
+		insert into testtable(name) values(#{name})
+	</insert>
+	
+	<delete id="deleteData">
+		delete from testtable order by id desc limit 1
+	</delete>
+
+</mapper>

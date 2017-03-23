@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- 此处为 sping 配置文件 ，spring MVC 配置文件见：spring-servlet.xml -->
+	
+	<!-- 扫描service层注解 -->
+	<context:component-scan base-package="com.trainoo.**">
+		<!-- spring跟springMVC分开配置，所以此处不在扫描Controller -->
+		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
+	</context:component-scan>
+
+	<!-- 读取配置文件 -->
+	<bean id="defaultPropertyPlaceholder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:resource/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 阿里巴巴druid数据连接池配置 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc_url}" />
+		<property name="username" value="${jdbc_user}" />
+		<property name="password" value="${jdbc_password}" />
+		<property name="driverClassName" value="${jdbc_driver}" />
+		<!-- filters：统计监控信息，value是一个string,支持组合配置，如stat,log4j,那么问题来了，如果自定义的filter该如何配置呢，可以通过bean的形式添加 -->
+		<!-- <property name="filters" value="${filters}" /> -->
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- mapper.xml文件的扫描路径 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath*:com/trainoo/**/*Mapper.xml"></property>
+	</bean>
+	
+	<!-- 扫描dao层注解  annotationClass这个必须要加上，不然会把Service一起扫描进去,导致mapper注入失败  -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">    
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+    	<property name="basePackage" value="com.trainoo" />    
+    	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
+  	</bean>  
+  
+  	<!-- 事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- druid监控统计bean 对应上文dataSource中的proxyFilters -->
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="1000" />
+		<property name="logSlowSql" value="true" />
+	</bean>
+
+</beans>
