@@ -1,11 +1,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd  ">
 
 	<!-- 此处为 sping 配置文件 ，spring MVC 配置文件见：spring-servlet.xml -->
 	
@@ -14,7 +19,7 @@
 		<!-- spring跟springMVC分开配置，所以此处不在扫描Controller -->
 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
 	</context:component-scan>
-
+	
 	<!-- 读取配置文件 -->
 	<bean id="defaultPropertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -66,5 +71,50 @@
 		<property name="slowSqlMillis" value="1000" />
 		<property name="logSlowSql" value="true" />
 	</bean>
+
+
+<!-- ======================== 定时器  ======================== -->
+	<!-- 方式二：使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->   
+	<!-- 定义目标bean和bean中的方法 -->
+	<bean id="QuartzJob" class="com.trainoo.quartz.QuartzJob" />
+	<bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="QuartzJob" />
+		</property>
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->
+			<value>execute</value>
+		</property>
+	</bean>
+	<!-- ======================== 调度触发器 ======================== -->
+	<bean id="CronTriggerFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod"></property>
+		<!-- <property name="cronExpression" value="0/5 * * * * ?"></property> --> <!-- 5秒执行一次 -->
+		<property name="cronExpression" value="0 0 10,14,16 * * ?"></property> <!-- 每天上午10点,下午2点和下午4点 -->
+	</bean>
+	<!-- ======================== 调度工厂 ======================== -->
+	<bean id="SpringJobSchedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="CronTriggerFactoryBean" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- mvc自带的定时器 -->
+	<!-- task任务扫描注解   定时器  -->  
+	<task:annotation-driven/>  
+	<!-- <bean id="ScheduledDemo" class="com.trainoo.quartz.ScheduledDemo"></bean>
+	<task:scheduled-tasks>   -->
+		<!-- 每天上午10点,下午2点和下午4点 -->
+		<!-- <task:scheduled ref="ScheduledDemo" method="taskJobA" cron="0 0 10,14,16 * * ?"/>
+		<task:scheduled ref="ScheduledDemo" method="taskJobB" cron="0 0 10,14,16 * * ?"/> -->
+		<!-- 这里表示的是每隔五秒执行一次  -->  
+		<!-- <task:scheduled ref="ScheduledDemo" method="taskJobA" cron="*/1 * * * * ?"/>  
+		<task:scheduled ref="ScheduledDemo" method="taskJobB" cron="*/3 * * * * ?"/> -->  
+    <!-- </task:scheduled-tasks>  --> 
+<!-- ============================================================= -->
+
+
 
 </beans>
