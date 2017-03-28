@@ -1,0 +1,12 @@
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">  
+  	
+  	<!-- 多个配置文件时，可以使用import导入  -->
+    <import resource="classpath:spring/applicationContext.xml"/>  
+    <import resource="classpath:spring/applicationContext-ActiveMQ.xml"/>
+    <import resource="classpath:spring/applicationContext-quartz.xml"/> 
+    <import resource="classpath:spring/applicationContext-redis.xml"/>
+     
+</beans> 

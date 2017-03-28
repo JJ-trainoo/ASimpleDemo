@@ -5,20 +5,19 @@
 	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 	<!-- 这个地方默认加载的是系统的变量的配置文件，它们属于是系统级别的配置 -->
-	
+
 	<!-- spring 应用上下文配置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/applicationContext*.xml</param-value>
+		<param-value>classpath:spring/spring-context.xml</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- 这个地方加载的是 servlet 的变量的配置文件，它们属于 controller 级别的配置 
-		1.如果不配置这个 servlet-context.xml的配置文件位置，那么默认就会去/WEB-INF/servlet-context.xml 下面去寻找这个文件 
-		2.如果配置了这个位置，那么它就会去制定位置加载文件 -->
-		
+	<!-- 这个地方加载的是 servlet 的变量的配置文件，它们属于 controller 级别的配置 1.如果不配置这个 servlet-context.xml的配置文件位置，那么默认就会去/WEB-INF/servlet-context.xml 
+		下面去寻找这个文件 2.如果配置了这个位置，那么它就会去制定位置加载文件 -->
+
 	<!-- springMVC 的前端控制器 -->
 	<servlet>
 		<servlet-name>springMVC</servlet-name>
@@ -43,7 +42,7 @@
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>
 		<url-pattern>/druid/*</url-pattern>
-	</servlet-mapping>  
+	</servlet-mapping>
 
 	<!-- ip名片 -->
 	<servlet>
@@ -70,6 +69,17 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<!--session过滤器，设置session共享使用 -->
+	<filter>
+		<filter-name>springSessionRepositoryFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSessionRepositoryFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 首页  -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

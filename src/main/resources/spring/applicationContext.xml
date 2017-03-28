@@ -21,19 +21,21 @@
 	</context:component-scan>
 	
 	<!-- 读取配置文件 -->
-	<bean id="defaultPropertyPlaceholder"
+	<!-- 这里读取的配置文件只能在service层用@Value读取出来，如果要在controller层使用，需要在springMVC上也加上配置文件扫描 -->
+	<!-- <bean id="defaultPropertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
-				<value>classpath:resource/jdbc.properties</value>
+				<value>classpath:resource/*.properties</value>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
+	<!-- 也可以简化成如下配置 -->
+	<context:property-placeholder location="classpath:resource/*.properties"/>
 
 	<!-- 阿里巴巴druid数据连接池配置 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="url" value="${jdbc_url}" />
 		<property name="username" value="${jdbc_user}" />
 		<property name="password" value="${jdbc_password}" />
@@ -61,8 +63,7 @@
   	</bean>  
   
   	<!-- 事务 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
@@ -71,50 +72,5 @@
 		<property name="slowSqlMillis" value="1000" />
 		<property name="logSlowSql" value="true" />
 	</bean>
-
-
-<!-- ======================== 定时器  ======================== -->
-	<!-- 方式二：使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->   
-	<!-- 定义目标bean和bean中的方法 -->
-	<bean id="QuartzJob" class="com.trainoo.quartz.QuartzJob" />
-	<bean id="SpringQtzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="QuartzJob" />
-		</property>
-		<property name="targetMethod">  <!-- 要执行的方法名称 -->
-			<value>execute</value>
-		</property>
-	</bean>
-	<!-- ======================== 调度触发器 ======================== -->
-	<bean id="CronTriggerFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="SpringQtzJobMethod"></property>
-		<!-- <property name="cronExpression" value="0/5 * * * * ?"></property> --> <!-- 5秒执行一次 -->
-		<property name="cronExpression" value="0 0 10,14,16 * * ?"></property> <!-- 每天上午10点,下午2点和下午4点 -->
-	</bean>
-	<!-- ======================== 调度工厂 ======================== -->
-	<bean id="SpringJobSchedulerFactoryBean"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<ref bean="CronTriggerFactoryBean" />
-			</list>
-		</property>
-	</bean>
-
-	<!-- mvc自带的定时器 -->
-	<!-- task任务扫描注解   定时器  -->  
-	<task:annotation-driven/>  
-	<!-- <bean id="ScheduledDemo" class="com.trainoo.quartz.ScheduledDemo"></bean>
-	<task:scheduled-tasks>   -->
-		<!-- 每天上午10点,下午2点和下午4点 -->
-		<!-- <task:scheduled ref="ScheduledDemo" method="taskJobA" cron="0 0 10,14,16 * * ?"/>
-		<task:scheduled ref="ScheduledDemo" method="taskJobB" cron="0 0 10,14,16 * * ?"/> -->
-		<!-- 这里表示的是每隔五秒执行一次  -->  
-		<!-- <task:scheduled ref="ScheduledDemo" method="taskJobA" cron="*/1 * * * * ?"/>  
-		<task:scheduled ref="ScheduledDemo" method="taskJobB" cron="*/3 * * * * ?"/> -->  
-    <!-- </task:scheduled-tasks>  --> 
-<!-- ============================================================= -->
-
-
 
 </beans>
