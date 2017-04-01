@@ -12,27 +12,17 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd  ">
 
-	<!-- 此处为 sping 配置文件 ，spring MVC 配置文件见：spring-servlet.xml -->
 	
 	<!-- 扫描service层注解 -->
-	<context:component-scan base-package="com.trainoo.**">
+	<context:component-scan base-package="com.trainoo.druid.**">
 		<!-- spring跟springMVC分开配置，所以此处不在扫描Controller -->
 		<context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation" />
-	</context:component-scan>
+	</context:component-scan>	
+	<!-- 存在context:component-scan时，context:annotation-config可以省略  -->
+	<!-- <context:annotation-config /> -->
 	
 	<!-- 读取配置文件 -->
-	<!-- 这里读取的配置文件只能在service层用@Value读取出来，如果要在controller层使用，需要在springMVC上也加上配置文件扫描 -->
-	<!-- <bean id="defaultPropertyPlaceholder"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
-		<property name="locations">
-			<list>
-				<value>classpath:resource/*.properties</value>
-			</list>
-		</property>
-	</bean> -->
-	<!-- 也可以简化成如下配置 -->
-	<context:property-placeholder location="classpath:resource/*.properties"/>
+	<context:property-placeholder location="classpath:resource/jdbc.properties"/>
 
 	<!-- 阿里巴巴druid数据连接池配置 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -51,8 +41,8 @@
 	
 	<!-- mapper.xml文件的扫描路径 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations" value="classpath*:com/trainoo/**/*Mapper.xml"></property>
 	</bean>
 	
 	<!-- 扫描dao层注解  annotationClass这个必须要加上，不然会把Service一起扫描进去,导致mapper注入失败  -->

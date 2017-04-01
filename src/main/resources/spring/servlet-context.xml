@@ -20,7 +20,7 @@
 		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
 	</context:component-scan>
 	
-	<!-- 静态资源文件，不会被Spring MVC拦截  cache-period:缓存一年 -->
+	<!-- 静态资源文件映射，  cache-period:缓存一年 -->
     <mvc:resources location="/static/images/" mapping="/images/**" cache-period="31536000" />
     <mvc:resources location="/static/pages/" mapping="/pages/**" />
 	
