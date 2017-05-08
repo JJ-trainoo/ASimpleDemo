@@ -297,6 +297,13 @@
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.54</version>
 		</dependency>
+	
+		<!-- jsoup HTML parser library @ http://jsoup.org/ -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.10.2</version>
+		</dependency>
 
 	</dependencies>
 
