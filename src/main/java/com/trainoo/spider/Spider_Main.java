@@ -28,12 +28,12 @@ public class Spider_Main {
 		// 开始抓取网页
 		Spider_Main spider = new Spider_Main();
 		long startTime = System.currentTimeMillis();
-		spider.craw(URL);
+		spider.crawl(URL);
 		long endTime = System.currentTimeMillis();
 		logger.info("抓取完毕，用时[" + (endTime - startTime) / 1000 + "]秒");
 	}
 	
-	public void craw(String url){
+	public void crawl(String url){
 		int count = 1; 
 		logger.info(url);
 		urlManager.add_new_url(url);
