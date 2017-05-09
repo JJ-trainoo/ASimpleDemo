@@ -12,7 +12,9 @@ public class Spider_Main {
 	// 最大爬取次数
 	private static int MAX_CRAW_NUM = 10000;
 	// 起始URl
-	private static String URL = "http://www.83zw.com/book/26/26879/10299158.html";
+	//private static String URL = "http://www.83zw.com/book/26/26879/10299158.html";  // 五行天
+	//private static String URL = "http://www.83zw.com/book/37/37277/12988902.html";  // 一念永恒
+	private static String URL = "http://www.83zw.com/book/0/224/6204555.html";   // 凡人修仙
 	
 	private static Spider_UrlManager urlManager;
 	private static Spider_HtmlDownloader htmlDownload;
@@ -41,10 +43,10 @@ public class Spider_Main {
 			try {
 				String newUrl = urlManager.get_new_url();
 				logger.info("抓取网页:" + count + ", " + newUrl);
-				Document doc = htmlDownload.download(newUrl);
-				Map<String, String> map = htmlParser.parser(newUrl, doc);
-				urlManager.add_new_url(map.get(Spider_Constant.Element.URL.getValue()));
-				htmlOutput.collectData(map);
+				Document doc = htmlDownload.download(newUrl);              // 下载网页
+				Map<String, String> map = htmlParser.parser(newUrl, doc);  // 解析网页内容
+				urlManager.add_new_url(map.get(Spider_Constant.Element.URL.getValue()));  // 把新的url添加到url管理器中
+				htmlOutput.collectData(map);  // 保存收集的信息
 				if(count >= MAX_CRAW_NUM){
 					break;
 				}
@@ -53,6 +55,7 @@ public class Spider_Main {
 				logger.error("抓取网页异常~", e);
 			}
 		}
+		// 输出
 		htmlOutput.outputData();
 	}
 }
