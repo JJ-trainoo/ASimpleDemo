@@ -30,7 +30,13 @@ public class Spider_HtmlOutput {
 
 	private List<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
 
-	private String TEMP_PATH = "E://spider";
+	private String TEMP_PATH = "C:/Users/Administrator/Desktop/temp";
+	
+	Spider_HtmlOutput(){}
+	
+	Spider_HtmlOutput(String fileName){
+		TEMP_PATH = "C:/Users/Administrator/Desktop/" + fileName;
+	}
 
 	/**
 	 * 保存抓取的内容
@@ -109,11 +115,12 @@ public class Spider_HtmlOutput {
 					bb.clear();
 					nbuBuffer.clear();
 				}
+				logger.info("删除临时文件!" + filePath);
+				fc.close();
 				file.delete();
 				partNum ++;
 				filePath = TEMP_PATH + "/part" + partNum + ".txt";
 				file = new File(filePath);
-				fc.close();
 			}
 		} catch (Exception e) {
 			logger.error("输出文件异常!", e);

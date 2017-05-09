@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
@@ -25,6 +26,13 @@ public class Spider_HtmlParser {
 		return prefix + "/" + content;
 	}
 
+	/**
+	 * 解析正文内容
+	 * @authod zhoutao
+	 * @param url
+	 * @param doc
+	 * @return
+	 */
 	public Map<String, String> parser(String url, Document doc) {
 		if(null == doc){
 			return null;
@@ -46,6 +54,13 @@ public class Spider_HtmlParser {
 		return resultMap;
 	}
 
+	/**
+	 * 抓取目录页所有章节的url
+	 * @authod zhoutao
+	 * @param url
+	 * @param doc
+	 * @return
+	 */
 	public List<String> parserUrl(String url, Document doc){
 		List<String> listUrl = new ArrayList<String>();
 		Elements ems = doc.getElementsByClass("chapterlist").get(0).getElementsByTag("dd");
@@ -54,5 +69,22 @@ public class Spider_HtmlParser {
 			listUrl.add(url + newUrl);
 		}
 		return listUrl;
+	}
+
+	/**
+	 * 抓取小说名称
+	 * @authod zhoutao
+	 * @param doc
+	 * @return
+	 */
+	public String parserFileName(Document doc) {
+		try {
+			Element em = doc.getElementsByClass("btitle").get(0).getElementsByClass("fl").get(0);
+			String aticleName = em.getElementsByTag("h1").get(0).html();
+			String authorName = em.getElementsByTag("em").get(0).html();
+			return aticleName + "__" + authorName;
+		} catch (Exception e) {
+			return "undefine";
+		}
 	}
 }
