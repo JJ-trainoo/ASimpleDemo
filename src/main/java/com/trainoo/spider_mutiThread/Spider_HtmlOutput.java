@@ -92,6 +92,7 @@ public class Spider_HtmlOutput {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public void mergeFiles(String fileName) {
 		int partNum = 1;
 		String filePath = TEMP_PATH + "/part" + partNum + ".txt";
@@ -102,21 +103,21 @@ public class Spider_HtmlOutput {
 			while (file.exists()) {
 				logger.info("合并文件：" + filePath);
 				Charset charset = Charset.forName("utf-8");
-				CharsetDecoder chdecoder = charset.newDecoder();
-				CharsetEncoder chencoder = charset.newEncoder();
+				CharsetDecoder charDecoder = charset.newDecoder();
+				CharsetEncoder charEncoder = charset.newEncoder();
 				FileChannel fc = new FileInputStream(filePath).getChannel();
-				ByteBuffer bb = ByteBuffer.allocate(1024*1000);
-				CharBuffer charBuffer = chdecoder.decode(bb);
-				ByteBuffer nbuBuffer = chencoder.encode(charBuffer);
-				while (fc.read(nbuBuffer) != -1) {
-					bb.flip();
-					nbuBuffer.flip();
-					outChannel.write(nbuBuffer);
-					bb.clear();
-					nbuBuffer.clear();
+				ByteBuffer byteBuf = ByteBuffer.allocate(1024*1000);
+				CharBuffer charBuffer = charDecoder.decode(byteBuf);
+				ByteBuffer newByteBuf = charEncoder.encode(charBuffer);
+				while (fc.read(newByteBuf) != -1) {
+					byteBuf.flip();
+					newByteBuf.flip();
+					outChannel.write(newByteBuf);
+					byteBuf.clear();
+					newByteBuf.clear();
 				}
 				logger.info("删除临时文件!" + filePath);
-				fc.close();
+				fc.close(); // 必须先关闭通道之后，文件才能删除成功
 				file.delete();
 				partNum ++;
 				filePath = TEMP_PATH + "/part" + partNum + ".txt";

@@ -6,6 +6,12 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 
+/**
+ * 简单的网络爬虫程序，爬小说网站内容
+ * 单线程
+ * @author zhout
+ * @date 2017年5月10日
+ */
 public class Spider_Main {
 	
 	private static Logger logger = LogManager.getLogger(Spider_Main.class);

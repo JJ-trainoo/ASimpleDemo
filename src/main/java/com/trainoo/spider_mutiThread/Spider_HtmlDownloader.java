@@ -28,8 +28,18 @@ public class Spider_HtmlDownloader {
 					logger.error("第2次抓取失败，正在尝试第3次重连...");
 					return Jsoup.connect(newUrl).get();
 				} catch (IOException e2) {
-					logger.error("连接超时，网页抓取失败...");
-					throw new RuntimeException("网络连接超时，请重试！");
+					try {
+						logger.error("第3次抓取失败，正在尝试第4次重连...");
+						return Jsoup.connect(newUrl).get();
+					} catch (IOException e3) {
+						try {
+							logger.error("第4次抓取失败，正在尝试第5次重连...");
+							return Jsoup.connect(newUrl).get();
+						} catch (IOException e4) {
+							logger.error("连接超时，网页抓取失败...");
+							throw new RuntimeException("网络连接超时，请重试！");
+						}
+					}
 				}
 			}
 		}

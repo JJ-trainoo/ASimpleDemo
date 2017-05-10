@@ -9,6 +9,12 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 
+/**
+ * 爬小说网站，下载成txt文本
+ * 多线程
+ * @author zhout
+ * @date 2017年5月10日
+ */
 public class Spider_Main {
 
 	private static Logger logger = LogManager.getLogger(Spider_Main.class);
@@ -22,8 +28,9 @@ public class Spider_Main {
 	private static Spider_HtmlOutput htmlOutput;
 
 	public static void main(String[] args) throws Exception {
+		// 参数是否为空
 		if (args.length <= 0) {
-			logger.error("参数错误");
+			logger.error("请输入起始URL!!!");
 			return;
 		}
 		// 起始url
@@ -33,7 +40,8 @@ public class Spider_Main {
 		urlManager = new Spider_UrlManager();
 		htmlDownload = new Spider_HtmlDownloader();
 		htmlParser = new Spider_HtmlParser();
-		
+
+		logger.info("正在启动程序...");
 		// 获取全部章节的url
 		Document doc = htmlDownload.download(URL);
 		List<String> listUrl = htmlParser.parserUrl(URL, doc);
@@ -48,8 +56,6 @@ public class Spider_Main {
 	public void crawl(String url, String fileName) throws Exception {
 		ExecutorService exec = Executors.newCachedThreadPool();
 		long startTime = System.currentTimeMillis();
-
-		logger.info("==============开始================");
 		Spider_UrlManager um = new Spider_UrlManager();
 		int countUrl = urlManager.getNewUrlSize();
 		int countThread = 1;
@@ -63,17 +69,19 @@ public class Spider_Main {
 				exec.execute(thread);
 			}
 		}
-		exec.shutdown();
+		exec.shutdown(); //该方法在加入线程队列的线程执行完之前不会执行。
 		htmlOutput = new Spider_HtmlOutput(fileName);
 		while (true) {
-			if (exec.isTerminated()) {
+			if (exec.isTerminated()) {  //当shutdown()或者shutdownNow()执行了之后才会执行，并返回true
 				long endTime = System.currentTimeMillis();
-				logger.info("抓取完毕，用时[" + (endTime - startTime) / 1000 + "]秒");
+				logger.info("抓取完毕，用时：" + (endTime - startTime) / 1000 + "秒");
 				htmlOutput.mergeFiles(fileName);
 				break;
 			}
 			Thread.sleep(1000);
 		}
+		long endTime = System.currentTimeMillis();
+		logger.info("《" + fileName + "》下载完毕，共计用时：" + (endTime - startTime) / 1000 + "秒");
 	}
 
 	class crawlThread implements Runnable {
