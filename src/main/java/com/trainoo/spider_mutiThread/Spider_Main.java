@@ -62,6 +62,7 @@ public class Spider_Main {
 		for (int i = 1; i <= countUrl; i++) {
 			String newUrl = urlManager.get_new_url();
 			um.add_new_url(newUrl);
+			// 每个线程分配10个URL,提高网页抓取的效率
 			if (i % 10 == 0 || urlManager.getNewUrlSize() == 0) {
 				crawlThread thread = new crawlThread(um, countThread, fileName);
 				countThread++;
@@ -84,6 +85,12 @@ public class Spider_Main {
 		logger.info("《" + fileName + "》下载完毕，共计用时：" + (endTime - startTime) / 1000 + "秒");
 	}
 
+	/**
+	 * 子线程开始爬数据
+	 *
+	 * @author zhout
+	 * @date 2017年5月10日
+	 */
 	class crawlThread implements Runnable {
 
 		private Spider_UrlManager urlManager = new Spider_UrlManager();
