@@ -1,4 +1,4 @@
-package com.trainoo.novelParser;
+package com.trainoo.novel.chapterParser;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,9 +10,11 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class NovelParser {
+import com.trainoo.novel.utils.EncodingDetect;
+
+public class ChapterParser {
 	
-	private Logger logger = LogManager.getLogger(NovelParser.class);
+	private Logger logger = LogManager.getLogger(ChapterParser.class);
 	
 	// 文件路径
 	private String path;
@@ -23,7 +25,7 @@ public class NovelParser {
 
 	public static final int MAX_PARSE_NUMBER = 200;
 
-	public NovelParser(String path){
+	public ChapterParser(String path){
 		this.path = path;
 		this.charset = getCharset(path);
 		titleList = new ArrayList<TitleInfo>();
@@ -38,7 +40,7 @@ public class NovelParser {
 	 * @throws IOException
 	 */
 	public static String getCharset(String filePath){
-		return EncodingDetect.getJavaEncode(filePath);    
+		return EncodingDetect.getJavaEncode(filePath);
 	}
 
 	/**

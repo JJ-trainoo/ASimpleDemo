@@ -1,4 +1,4 @@
-package com.trainoo.novelParser;
+package com.trainoo.novel.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,13 +30,6 @@ import java.net.URL;
  * @version 1.0 
  */
 public class EncodingDetect {
-	
-	public static void main(String[] args) {
-		String file = "E:/PWCP_ANM_ARQC_S99_EAIR_ANM_L88_P9_20100126150002424.xml";
-		String encode=getJavaEncode(file);
-		System.out.println(encode);
-		readFile(file,encode);
-	}
 	
 	/**
 	 * 得到文件的编码
