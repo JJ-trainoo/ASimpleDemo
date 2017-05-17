@@ -15,8 +15,8 @@ import javax.imageio.ImageIO;
 public class PageParser {
 
 	private static final int MARGIN = 50;
-	private static int WIDTH = 720;
-	private static int HEIGHT = 1080;
+	private static int WIDTH = 480;
+	private static int HEIGHT = 720;
 	private static int FONT_SIZE = 20;
 	private static int LINE_HEIGHT = 40;
 	private static int PAGE_SIZE = 0;
