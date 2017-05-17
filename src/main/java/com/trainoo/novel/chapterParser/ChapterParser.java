@@ -2,15 +2,12 @@ package com.trainoo.novel.chapterParser;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-
-import com.trainoo.novel.utils.EncodingDetect;
 
 public class ChapterParser {
 	
@@ -25,22 +22,10 @@ public class ChapterParser {
 
 	public static final int MAX_PARSE_NUMBER = 200;
 
-	public ChapterParser(String path){
+	public ChapterParser(String path, String charset){
 		this.path = path;
-		this.charset = getCharset(path);
+		this.charset = charset;
 		titleList = new ArrayList<TitleInfo>();
-	}
-
-	/**
-	 * 获取文件编码格式
-	 * @author zhout
-	 * @date 2017年5月15日
-	 * @param fileName
-	 * @return
-	 * @throws IOException
-	 */
-	public static String getCharset(String filePath){
-		return EncodingDetect.getJavaEncode(filePath);
 	}
 
 	/**
