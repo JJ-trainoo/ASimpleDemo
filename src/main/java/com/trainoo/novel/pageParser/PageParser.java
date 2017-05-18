@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,8 @@ import javax.imageio.ImageIO;
 public class PageParser {
 
 	private static final int MARGIN = 50;
-	private static int WIDTH = 480;
-	private static int HEIGHT = 720;
+	private static int WIDTH = 320;
+	private static int HEIGHT = 600;
 	private static int FONT_SIZE = 20;
 	private static int LINE_HEIGHT = 40;
 	private static int PAGE_SIZE = 0;
@@ -84,8 +83,7 @@ public class PageParser {
 	}
 	
 	public static BufferedImage outputImage(int pageNum) throws Exception{
-		String imagePath = "C:/Users/Administrator/Desktop/backGround.png";
-		String outputPath = "C:/Users/Administrator/Desktop/novel.png";
+		String imagePath = "C:/Users/Administrator/Desktop/bk.jpg";
 		
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
@@ -109,8 +107,9 @@ public class PageParser {
 			rowNum ++;
 		}
 		// 输出流
-		FileOutputStream fos = new FileOutputStream(new File(outputPath));
-		ImageIO.write(buffImg, "png", fos);
+		//String outputPath = "C:/Users/Administrator/Desktop/novel.png";
+		//FileOutputStream fos = new FileOutputStream(new File(outputPath));
+		//ImageIO.write(buffImg, "png", fos);
 		return buffImg;
 	}
 }
