@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -19,11 +18,12 @@ public class ContentPanel extends JPanel {
 
 	private static final long serialVersionUID = 4782809279184852230L;
 
-	private JList<String> jList = null;
-	private List<TitleInfo> title = null;
-	private DefaultListModel<String> dlm = null;
-	private String chapterName = "正文";
+	private static JList<String> jList = null;
+	private static List<TitleInfo> title = null;
+	private static DefaultListModel<String> dlm = null;
+	private String chapterName = "";
 	private String filePath, charset;
+	private static int curPage, pageSize;
 
 	ChapterPanel chapterPanel = null;
 	ImagePanel imagePanel = null;
@@ -39,29 +39,73 @@ public class ContentPanel extends JPanel {
 
 		this.setLayout(new GridLayout());
 		this.setPreferredSize(new Dimension(100, 635));
-		try {
-			chapterPanel = new ChapterPanel(jList);
-			imagePanel = new ImagePanel(chapterName);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		chapterPanel = new ChapterPanel(jList);
+		imagePanel = new ImagePanel(chapterPanel, filePath, title, chapterName, charset, curPage);
 
 		this.add(chapterPanel);
 		this.add(imagePanel);
 		
-		resetImagePanel();
+		curPage = imagePanel.getCurPage();   // 获取当前页
+		pageSize = imagePanel.getPageSize(); // 总页数
+		// 初始化按钮点击事件
+		initButton();
+		// 重新绘制窗口
+		resetChapterPanel();
+	}
+	
+	/**
+	 * 按钮添加事件监听
+	 */
+	private void initButton(){
+		chapterPanel.up.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					if(curPage <= 0){
+						chapterName = (String) imagePanel.getChapterInfo().get("preview");
+						ImagePanel tmp = new ImagePanel(chapterPanel, filePath, title, chapterName, charset, 0);
+						pageSize = tmp.getPageSize();
+						curPage = pageSize - 1;
+					}else {
+						curPage = curPage - 1;
+					}
+					System.out.println("pageSize:"+pageSize+" ,curPage:"+curPage);
+					imagePanel.setCurPage(curPage);
+					init(dlm, jList);
+				}
+			}
+		});
+		chapterPanel.down.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 1) {
+					if(curPage >= pageSize - 1){
+						chapterName = (String) imagePanel.getChapterInfo().get("endString");
+						ImagePanel tmp = new ImagePanel(chapterPanel, filePath, title, chapterName, charset, 0);
+						pageSize = tmp.getPageSize();
+						curPage = 0;
+					}else {
+						curPage = curPage + 1;
+					}
+					System.out.println("pageSize:"+pageSize+" ,curPage:"+curPage);
+					imagePanel.setCurPage(curPage);
+					init(dlm, jList);
+				}
+			}
+		});
 	}
 
 	public ContentPanel() {
-		// 创建左侧列表栏目
+		// 创建左侧章节列表栏目
 		dlm = new DefaultListModel<String>();
 		jList = new JList<String>(dlm);
 		jList.setVisibleRowCount(30);
+		// 给章节点击添加监听事件
 		jList.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					chapterName = jList.getSelectedValue();
 					System.out.println(chapterName);
+					curPage = 0;   // 获取当前页
 					init(dlm, jList);
 				}
 			}
@@ -71,6 +115,7 @@ public class ContentPanel extends JPanel {
 	}
 
 	public void resetChapterPanel() {
+		System.out.println("chapterName"+chapterName);
 		chapterPanel.revalidate();
 	}
 
@@ -78,14 +123,7 @@ public class ContentPanel extends JPanel {
 		imagePanel.revalidate();
 	}
 
-	public static void main(String[] args) throws Exception {
-		JFrame jf = new JFrame();
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jf.add(new ContentPanel());
-		jf.setVisible(true);
-	}
-
-	void parserChapter(String filePath, String charset) {
+	public void parserChapter(String filePath, String charset) {
 		this.filePath = filePath;
 		this.charset = charset;
 		ChapterParser parser = new ChapterParser(filePath, charset);
@@ -95,10 +133,18 @@ public class ContentPanel extends JPanel {
 		}
 		resetChapterPanel();
 	}
-
-	void parserChapter() {
-		if (this.filePath != null && this.charset != null) {
-			parserChapter(this.filePath, this.charset);
-		}
+	
+	
+	/**
+	 * 测试
+	 * @authod zhoutao
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Exception {
+		JFrame jf = new JFrame();
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.add(new ContentPanel());
+		jf.setVisible(true);
 	}
 }

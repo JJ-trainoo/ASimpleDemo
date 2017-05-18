@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +17,14 @@ public class PageParser {
 
 	private static final int MARGIN = 50;
 	private static int WIDTH = 320;
-	private static int HEIGHT = 600;
+	private static int HEIGHT = 480;
 	private static int FONT_SIZE = 20;
 	private static int LINE_HEIGHT = 40;
 	private static int PAGE_SIZE = 0;
 	private static int COL_SIZE = 0;
 	private static String DEFAULT_CHARSET = "ISO-8859-1";
 	
-	private static List<String> pageList = new ArrayList<String>();
+	private static List<String> pageList = null;
 	private RandomAccessFile readFile;
 
 	public PageParser(){
@@ -46,13 +48,10 @@ public class PageParser {
 		return pageList.size();
 	}
 	
-	public List<String> getPageList(){
-		return pageList;
-	}
-
 	// 解析  传入文件，起始位置，结束位置
-	public void parser(File file, String charset, long startIndex, String endString) {
+	public List<String> parser(File file, String charset, long startIndex, String endString) {
 		try {
+			pageList = new ArrayList<String>();
 			readFile = new RandomAccessFile(file, "r");
 			readFile.seek(startIndex);
 			
@@ -80,16 +79,22 @@ public class PageParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return pageList;
 	}
 	
-	public static BufferedImage outputImage(int pageNum) throws Exception{
-		String imagePath = "C:/Users/Administrator/Desktop/bk.jpg";
+	public BufferedImage outputImage(int pageNum){
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("novel.png");
 		
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
 		// 通过文件生成一个图片buffer
-		BufferedImage bImg = ImageIO.read(new File(imagePath));
-		g2D.drawImage(bImg, 0, 0, null);
+		BufferedImage bImg = null;
+		try {
+			bImg = ImageIO.read(is);
+			g2D.drawImage(bImg, 0, 0, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// 设置字体颜色，大小
 		g2D.setColor(new Color(110, 110, 110));
 		g2D.setFont(new Font("微软雅黑", Font.PLAIN, FONT_SIZE));

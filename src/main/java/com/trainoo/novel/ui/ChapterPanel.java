@@ -1,5 +1,8 @@
 package com.trainoo.novel.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +19,7 @@ class ChapterPanel extends JPanel {
 	@SuppressWarnings("rawtypes")
 	JList jList = null;
 	JButton up = new JButton("上一页");
-	JButton down = new JButton("上一页");
+	JButton down = new JButton("下一页");
 	
 	private void init(){
 		this.setBounds(0, 0, 100, 720);
@@ -24,7 +27,6 @@ class ChapterPanel extends JPanel {
 		this.setLayout(new VFlowLayout());
 		this.add(jList);
 		this.add(new JScrollPane(jList));
-		//jList.setVisibleRowCount(35);
 		JPanel jpanel = new JPanel();
 		jpanel.add(up);
 		jpanel.add(down);
@@ -34,7 +36,7 @@ class ChapterPanel extends JPanel {
 	public <E> ChapterPanel(JList<E> jList) {
 		this.jList = jList;
 		init();
-    }  
+    }
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) {
@@ -46,4 +48,5 @@ class ChapterPanel extends JPanel {
 		jf.add(new ChapterPanel(jList));
 		jf.setVisible(true);
 	}
+	
 }

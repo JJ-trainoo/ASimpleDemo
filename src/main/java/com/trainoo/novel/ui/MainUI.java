@@ -34,71 +34,39 @@ public class MainUI implements ActionListener {
 		item.addActionListener(this);
 		menu.add(item);
 		menuBar.add(menu);
-		
+		// 设置布局
 		con.setLayout(new VFlowLayout());
 		con.add(menuBar);
 	}
 
 	public MainUI() {
-		
+		// 初始化菜单栏
 		init();
+		// 创建主窗口
 		mainCont = new ContentPanel();
 		con.add(mainCont);
 		this.frame.add(con);
+		// 默认窗口属性
 		this.frame.setSize(715, 710);
-		//this.frame.setResizable(false);
+		this.frame.setResizable(false);
 		this.frame.setVisible(true);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * 导入文件菜单监听事件
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// 新建文本选择器，选择文件
 		JFileChooser jfc = new JFileChooser();
 		jfc.showDialog(new JLabel(), "选择");
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		File file = jfc.getSelectedFile();
 		String filePath = file.getAbsolutePath();
-		
+		// 根据文件的路径， 调用main的方法解析文本章节
 		String charset = EncodingDetect.getJavaEncode(filePath);
 		mainCont.parserChapter(filePath, charset);
-	}
-	
-	
-	
-	
-	
-	/*private void parserPage(String filePath, String charset, int chapter){
-		String endString = "END";
-		if(chapter >= title.size() || chapter < 0){
-			System.out.println("error~");
-			return;
-		}
-		if(chapter + 1 < title.size()){
-			endString = title.get(chapter+1).getTitle();
-		}
-		PageParser pageParser = new PageParser();
-		pageParser.parser(new File(filePath), charset, title.get(chapter).getStartLength(), endString);
-		getPageImage(0);
-	}
-	
-	public void getPageImage(int page){
-		BufferedImage buffImg;
-		try {
-			buffImg = PageParser.outputImage(0);
-			ImagePanel image = new ImagePanel();
-			image.setPreferredSize(new Dimension(480, 720));
-			panel.add(image);
-			con.add(panel);
-			frame.setSize(800, 820);
-			con.revalidate();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}*/
-	
-	public void reset(){
-		mainCont = new ContentPanel();
-		con.revalidate();
 	}
 	
 }

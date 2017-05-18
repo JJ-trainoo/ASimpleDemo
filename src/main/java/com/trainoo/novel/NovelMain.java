@@ -31,6 +31,6 @@ public class NovelMain {
 		}
 		PageParser pageParser = new PageParser();
 		pageParser.parser(new File(path), charset, title.get(chapter).getStartLength(), endString);
-		PageParser.outputImage(0);
+		pageParser.outputImage(0);
 	}
 }

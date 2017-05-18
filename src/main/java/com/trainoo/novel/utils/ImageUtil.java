@@ -6,8 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+
+import com.trainoo.novel.pageParser.PageParser;
 
 public class ImageUtil {
 	
@@ -15,14 +18,18 @@ public class ImageUtil {
 	private static final int HEIGHT = 1080;
 	private static final int PT = 20;
 
+	public static void main(String[] args) throws Exception {
+		outputImage("444444");
+	}
 	public static void outputImage(String aticle) throws Exception{
-		String imagePath = "C:/Users/Administrator/Desktop/backGround.png";
+		String is = ClassLoader.getSystemClassLoader().getResource("backGround.png").getPath();
+		System.out.println(is);
 		String outputPath = "C:/Users/Administrator/Desktop/novel.png";
 		
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
 		// 通过文件生成一个图片buffer
-		BufferedImage bImg = ImageIO.read(new File(imagePath));
+		BufferedImage bImg = ImageIO.read(new File(is));
 		g2D.drawImage(bImg, 0, 0, null);
 		// 设置字体颜色，大小
 		g2D.setColor(new Color(110, 110, 110));
