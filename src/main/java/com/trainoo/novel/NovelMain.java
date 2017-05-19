@@ -17,7 +17,7 @@ public class NovelMain {
 		// NovelParser parser = new
 		// NovelParser("C:/Users/Administrator/Desktop/Book/book02.txt");
 
-		ChapterParser parser = new ChapterParser(path, charset);
+		ChapterParser parser = new ChapterParser(new File(path), charset);
 		List<TitleInfo> title = parser.parseTitleInfo();
 		
 		int chapter = 28;

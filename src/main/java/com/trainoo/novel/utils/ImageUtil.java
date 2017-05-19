@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
@@ -52,14 +53,18 @@ public class ImageUtil {
 		ImageIO.write(buffImg, "png", fos);
 	}
 	
-	public static BufferedImage getImage(String aticle) throws Exception{
-		String imagePath = "C:/Users/Administrator/Desktop/bk.jpg";
-		
+	public static BufferedImage getImage(String aticle) {
+		String is = ClassLoader.getSystemClassLoader().getResource("backGround.png").getPath();
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
 		// 通过文件生成一个图片buffer
-		BufferedImage bImg = ImageIO.read(new File(imagePath));
-		g2D.drawImage(bImg, 0, 0, null);
+		BufferedImage bImg;
+		try {
+			bImg = ImageIO.read(new File(is));
+			g2D.drawImage(bImg, 0, 0, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// 设置字体颜色，大小
 		g2D.setColor(new Color(110, 110, 110));
 		g2D.setFont(new Font("微软雅黑", Font.PLAIN, PT));

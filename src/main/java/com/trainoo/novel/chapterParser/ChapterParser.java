@@ -1,6 +1,7 @@
 package com.trainoo.novel.chapterParser;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ChapterParser {
 	private Logger logger = LogManager.getLogger(ChapterParser.class);
 	
 	// 文件路径
-	private String path;
+	private File file;
 	// 文件编码
 	private String charset;
 	// 章节列表
@@ -22,8 +23,8 @@ public class ChapterParser {
 
 	public static final int MAX_PARSE_NUMBER = 200;
 
-	public ChapterParser(String path, String charset){
-		this.path = path;
+	public ChapterParser(File file, String charset){
+		this.file = file;
 		this.charset = charset;
 		titleList = new ArrayList<TitleInfo>();
 	}
@@ -43,7 +44,7 @@ public class ChapterParser {
 		FileInputStream inputStream = null;
 		String line = "";
 		try {
-			inputStream = new FileInputStream(path);
+			inputStream = new FileInputStream(file);
 			inputStreamReader = new InputStreamReader(inputStream, charset);
 			reader = new BufferedReader(inputStreamReader);
 
@@ -104,7 +105,6 @@ public class ChapterParser {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(line);
 			e.printStackTrace();
 		} finally {
 			if (inputStream != null) {

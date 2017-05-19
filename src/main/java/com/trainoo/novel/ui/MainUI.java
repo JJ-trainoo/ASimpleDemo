@@ -66,7 +66,7 @@ public class MainUI implements ActionListener {
 		String filePath = file.getAbsolutePath();
 		// 根据文件的路径， 调用main的方法解析文本章节
 		String charset = EncodingDetect.getJavaEncode(filePath);
-		mainCont.parserChapter(filePath, charset);
+		mainCont.parserChapter(new File(filePath), charset);
 	}
 	
 }

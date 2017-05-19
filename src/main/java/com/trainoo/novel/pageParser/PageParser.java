@@ -100,8 +100,8 @@ public class PageParser {
 		g2D.setFont(new Font("微软雅黑", Font.PLAIN, FONT_SIZE));
 		// 输出文字
 		int rowNum = 0;
+		System.out.println("===> parser page number: " + pageNum + "===>>pageList Size: " + pageList.size());
 		String aticle = pageList.get(pageNum);
-		System.out.println(aticle);
 		while(aticle.length() > 0){
 			if(COL_SIZE > aticle.length()){
 				COL_SIZE = aticle.length();
@@ -115,6 +115,38 @@ public class PageParser {
 		//String outputPath = "C:/Users/Administrator/Desktop/novel.png";
 		//FileOutputStream fos = new FileOutputStream(new File(outputPath));
 		//ImageIO.write(buffImg, "png", fos);
+		return buffImg;
+	}
+	
+	public BufferedImage outputImage(String content){
+		//InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("novel.png");
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("backGround.png");
+		
+		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
+		// 通过文件生成一个图片buffer
+		BufferedImage bImg = null;
+		try {
+			bImg = ImageIO.read(is);
+			g2D.drawImage(bImg, 0, 0, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// 设置字体颜色，大小
+		g2D.setColor(new Color(110, 110, 110));
+		g2D.setFont(new Font("微软雅黑", Font.PLAIN, FONT_SIZE));
+		// 输出文字
+		int rowNum = 0;
+		String aticle = content;
+		while(aticle.length() > 0){
+			if(COL_SIZE > aticle.length()){
+				COL_SIZE = aticle.length();
+			}
+			String outStr = aticle.substring(0, COL_SIZE);
+			aticle = aticle.substring(COL_SIZE, aticle.length());
+			g2D.drawString(outStr, MARGIN, MARGIN + LINE_HEIGHT * rowNum);
+			rowNum ++;
+		}
 		return buffImg;
 	}
 }
