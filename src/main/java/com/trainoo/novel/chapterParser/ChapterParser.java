@@ -55,7 +55,7 @@ public class ChapterParser {
 			TitleInfo titleInfo = new TitleInfo();
 			StringBuilder builder = new StringBuilder();
 			int parseLength = 0;
-			while ((line = reader.readLine()) != null && count < 50) {
+			while ((line = reader.readLine()) != null) {
 				line = line.trim();
 				if (line.equals("")) {
 					parseLength += 2;// 这里的+2是因为要加上换行的长度
