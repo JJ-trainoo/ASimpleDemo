@@ -19,7 +19,7 @@ import org.junit.Test;
  * @author zhout
  * @date 2017年4月28日
  */
-public class MyTest2_File {
+public class Test_File {
 
 	// @Test
 	public void test() throws Exception {
