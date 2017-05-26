@@ -61,10 +61,10 @@ public class PageParser {
 			while(newLine != null){
 				newLine = readFile.readLine();
 				newLine = newLine != null ? new String(newLine.getBytes(DEFAULT_CHARSET), charset) : null;
-				if(newLine.contains(endString)){
+				sb.append(newLine);
+				if(newLine != null && newLine.contains(endString)){
 					break;
 				}
-				sb.append(newLine);
 			}
 			String pageContent = sb.toString();
 			int length = sb.toString().length();
@@ -133,7 +133,7 @@ public class PageParser {
 			e.printStackTrace();
 		}
 		// 设置字体颜色，大小
-		g2D.setColor(new Color(110, 110, 110));
+		g2D.setColor(new Color(90, 90, 90));
 		g2D.setFont(new Font("微软雅黑", Font.PLAIN, FONT_SIZE));
 		// 输出文字
 		int rowNum = 0;

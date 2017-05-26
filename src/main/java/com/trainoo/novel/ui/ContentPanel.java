@@ -38,6 +38,7 @@ public class ContentPanel extends JPanel {
 	private Map<String, Object> chapterInfo = null;
 	private String charset;
 	private static int curPage = -1, toPage, pageSize;
+	private static int flag = 0;
 
 	private File file;
 	ChapterPanel chapterPanel = null;
@@ -61,10 +62,12 @@ public class ContentPanel extends JPanel {
 					chapterName = jList.getSelectedValue();
 					System.out.println("chapterClicked_____________: " + chapterName);
 					toPage = 0; // 获取当前页
+					flag = 0;
 					init(dlm, jList);
 				}
 			}
 		});
+		
 		// 初始化章节面板跟内容面板
 		init(dlm, jList);
 	}
@@ -88,13 +91,16 @@ public class ContentPanel extends JPanel {
 		// 设置布局
 		this.setLayout(new GridLayout());
 		this.setPreferredSize(new Dimension(100, 635));
-
+		
 		// 如果当前显示的章节跟选择的章节不一样，则去寻找chapterName
 		if (!curChapName.equals(chapterName)) {
 			findCurChapter(chapterName);
 		}
-		// 
-		parserPage(chapterName, 0);
+		// 分页
+		System.out.println("flag:" + flag);
+		parserPage(chapterName, flag);
+		//获取图片
+		getCurrentPage(chapterName);
 
 		// 新建容器
 		chapterPanel = new ChapterPanel(jList);
@@ -117,12 +123,11 @@ public class ContentPanel extends JPanel {
 				if (e.getClickCount() == 1) {
 					if (toPage <= 0) {
 						chapterName = (String) chapterInfo.get(PageConstant.PREVIEW);
-						String curName = curChapName;
-						findCurChapter(chapterName);
-						parserPage(curName, 1);
+						flag = 1;
 					} else {
-						toPage = toPage - 1;
+						flag = 2;
 					}
+					System.out.println("toPage_up: " + toPage);
 					init(dlm, jList);
 				}
 			}
@@ -132,11 +137,11 @@ public class ContentPanel extends JPanel {
 				if (e.getClickCount() == 1) {
 					if (toPage >= pageSize - 1) {
 						chapterName = (String) chapterInfo.get(PageConstant.NEXT);
-						findCurChapter(chapterName);
-						parserPage(curChapName, -1);
+						flag = -1;
 					} else {
-						toPage = toPage + 1;
+						flag = -2;
 					}
+					System.out.println("toPage_down: " + toPage);
 					init(dlm, jList);
 				}
 			}
@@ -190,10 +195,10 @@ public class ContentPanel extends JPanel {
 	 */
 	private void findCurChapter(String chapterNeeded) {
 		System.out.println("开始查询===>> : " + chapterNeeded);
-		if(titles == null){
+		if (titles == null) {
 			return;
 		}
-		
+
 		long startIndex = 0;
 		String current = "";
 		String next = "END~";
@@ -220,7 +225,7 @@ public class ContentPanel extends JPanel {
 			}
 		}
 	}
-	
+
 	/**
 	 * 根据章节名称，解析、分页正文内容
 	 * 
@@ -229,44 +234,47 @@ public class ContentPanel extends JPanel {
 	 */
 	private void parserPage(String curName, int flag) {
 		// 如果当前章节不为空，则解析当前章节信息
-		if(chapterInfo != null){
+		if (chapterInfo != null) {
 			long start = (long) chapterInfo.get(PageConstant.START_INDEX);
 			String next = (String) chapterInfo.get(PageConstant.NEXT);
-			if(pages == null || !curChapName.equals(curName)){
+			if (pages == null || !curChapName.equals(curName)) {
 				PageParser paser = new PageParser();
 				pages = paser.parser(file, charset, start, next);
 				pageSize = pages.size();
 				System.out.println("pageSize changed:" + pageSize + " , curPage:" + curPage);
 			}
-			if(flag == 1){
+			if (flag == 1) {
 				toPage = pageSize - 1;
-			}else if(flag == -1){
+			} else if (flag == -1) {
 				toPage = 0;
-			}else{
+			} else if (flag == 2) {
 				toPage = toPage - 1;
+			} else if (flag == -2) {
+				toPage = toPage + 1;
+			}else {
 			}
 		}
-		getCurrentPage(curName);
 	}
-	
+
 	/**
 	 * 获取当前页显示的内容
+	 * 
 	 * @author zhout
 	 * @date 2017年5月19日
 	 * @return
 	 */
-	private void getCurrentPage(String curName){
-		if(curPage != -1){
-			if(!curChapName.equals(curName)){
+	private void getCurrentPage(String curName) {
+		if (curPage != -1) {
+			if (!curChapName.equals(curName)) {
 				System.out.println("get Page11111:" + toPage);
 				buffImage = new PageParser().outputImage(pages.get(toPage));
 				this.curChapName = curName;
 				curPage = toPage;
-			}else{
+			} else {
 				System.out.println("get Page22222:" + toPage);
 				buffImage = new PageParser().outputImage(pages.get(toPage));
 			}
-		}else{
+		} else {
 			curPage = 0;
 		}
 	}
