@@ -263,27 +263,12 @@
 		</dependency>
 
 		<!-- Dubbo -->
-		<!-- <dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>dubbo</artifactId>
-			<version>2.0.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.3.6</version>
-			<exclusions>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.alibaba</groupId> <artifactId>dubbo</artifactId> 
+			<version>2.0.13</version> </dependency> <dependency> <groupId>org.apache.zookeeper</groupId> 
+			<artifactId>zookeeper</artifactId> <version>3.3.6</version> <exclusions> 
+			<exclusion> <groupId>log4j</groupId> <artifactId>log4j</artifactId> </exclusion> 
+			</exclusions> </dependency> <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			<version>1.2.16</version> </dependency> -->
 
 		<!-- itextpdf 生成 PDF -->
 		<dependency>
@@ -297,7 +282,7 @@
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.54</version>
 		</dependency>
-	
+
 		<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -309,6 +294,18 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
+		</dependency>
+
+		<!-- 新增aop相关的jar -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.6.1</version>
 		</dependency>
 
 	</dependencies>
