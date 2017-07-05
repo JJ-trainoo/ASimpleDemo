@@ -6,6 +6,7 @@ org.eclipse*
 
 #folder
 \target
+\out
 \.idea
 \.settings
 apache-jmeter-3.0
