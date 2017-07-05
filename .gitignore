@@ -1,10 +1,12 @@
 #files
 *.class
+\.idea
 *.classpath
 org.eclipse*
 
 #folder
 \target
+\.idea
 \.settings
 apache-jmeter-3.0
 

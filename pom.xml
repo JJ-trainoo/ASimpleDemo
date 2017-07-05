@@ -18,7 +18,7 @@
 		<druid.version>1.0.9</druid.version>
 		<httpclient.version>4.3.5</httpclient.version>
 		<jstl.version>1.2</jstl.version>
-		<servlet-api.version>2.5</servlet-api.version>
+		<servlet-api.version>2.5.0</servlet-api.version>
 		<jsp-api.version>2.0</jsp-api.version>
 		<joda-time.version>2.5</joda-time.version>
 		<commons-lang3.version>3.3.2</commons-lang3.version>
@@ -35,8 +35,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${javax.servlet.version}</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
 			<!-- 如果存在编译需要而发布不需要的jar包，可以用scope标签，值设为provided -->
 			<!-- compile：默认的scope，表示 dependency 都可以在生命周期中使用。而且，这些dependencies 会传递到依赖的项目中。适用于所有阶段，会随着项目一起发布 -->
 			<!-- provided：跟compile相似，但是表明了dependency 由JDK或者容器提供，例如Servlet AP和一些JavaEE 
@@ -44,7 +45,6 @@
 			<!-- runtime：表示dependency不作用在编译时，但会作用在运行和测试时，如JDBC驱动，适用运行和测试阶段 -->
 			<!-- test：表示dependency作用在测试时，不作用在运行时。 只在测试时使用，用于编译和运行测试代码。不会随项目发布。 -->
 			<!-- system：跟provided 相似，但是在系统中要以外部JAR包的形式提供，maven不会在repository查找它 -->
-			<scope>provided</scope>
 		</dependency>
 		<!-- 时间操作组件 -->
 		<dependency>
@@ -85,7 +85,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<scope>test</scope>
 		</dependency>
 		<!-- 日志处理 -->
 		<dependency>
@@ -187,12 +186,6 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet-api.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -313,6 +306,19 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>1.6.1</version>
 		</dependency>
+		
+		<!-- 
+		spring-test的版本必须跟spring-webmvc的版本保持一致，不然会报错，如下：
+			Java.lang.IllegalStateException: Could not load TestContextBootstrapper [null]. 
+			Specify @BootstrapWith's 'value' attribute or make the default bootstrapper class available
+		 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${spring.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
 
 	</dependencies>
 
