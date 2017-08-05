@@ -14,7 +14,7 @@ import java.util.Map;
  * @author zhoutao
  * @date 2017年7月13日
  */
-public class Demo_01 {
+public class Demo_01_WordCount {
 
 	public static String maxCountWord(String text) {
 		// 分割字符串,此处为了方便， 使用多次replace简单处理

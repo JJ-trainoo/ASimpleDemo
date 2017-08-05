@@ -6,7 +6,7 @@ package com.trainoo.demo;
  * @author zhoutao
  * @date 2017年7月13日
  */
-public class Demo_02 {
+public class Demo_02_Integer {
 
 	/**
 	 * 需要知道的是，包装类为了节省内存跟提高性能，在1.5引入了缓存功能。
