@@ -1,3 +1,4 @@
+```
 ko re i jyou na ni wo u shi na e ba ko ko ro wa yu ru sa re ru no
 これ以上何を失えば 　心は许されるの
 要再失去多少东西 才能得到宽恕
@@ -181,3 +182,4 @@ ho shi i mo no na do mo u na ni mo na i
 ki mi no ho ka ni ta i se tsu na mo no na do
 君のほかに大切なものなど
 除你之外 还有什么够我珍重
+```
