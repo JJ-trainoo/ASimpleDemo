@@ -18,12 +18,9 @@ public class TitleMatches {
 
 	public static void main(String[] args) {
 		
-		String str1 = "正文 第二千零三章 虫威";
-		String str = "正文 第两千零四章 大胜";
-		
-		System.out.println(str1.charAt(2));
-		System.out.println(str.charAt(2));
-		System.out.println(str1.charAt(2) == str.charAt(2));
+		String str1 = "第7章 开卷有喜";  // 此处有瑕疵，返回false
+		String str = "正文 第两千零四章 百转迁回";
+
 		System.out.println(isZhang(str1) + "--" + str1);
 		System.out.println(isZhang(str) + "--" + str);
 	}
