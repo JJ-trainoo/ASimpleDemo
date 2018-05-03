@@ -17,14 +17,10 @@ public class TestZipPicture {
     /**
      * 创建图片缩略图(等比缩放)
      *
-     * @param src
-     *            源图片文件完整路径
-     * @param dist
-     *            目标图片文件完整路径
-     * @param width
-     *            缩放的宽度
-     * @param height
-     *            缩放的高度
+     * @param src    源图片文件完整路径
+     * @param dist   目标图片文件完整路径
+     * @param width  缩放的宽度
+     * @param height 缩放的高度
      */
     public static void createThumbnail(String src, String dist, float width,
                                        float height) {
@@ -51,7 +47,7 @@ public class TestZipPicture {
             int newHeight = (int) (image.getHeight() * ratio);
 
             BufferedImage bfImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
-            bfImage.getGraphics().drawImage( image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), 0, 0, null);
+            bfImage.getGraphics().drawImage(image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH), 0, 0, null);
 
             FileOutputStream os = new FileOutputStream(dist);
             JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
