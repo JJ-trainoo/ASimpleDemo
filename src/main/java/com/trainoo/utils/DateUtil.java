@@ -115,8 +115,7 @@ public final class DateUtil {
 	/**
 	 * 获取当前时间中文日期表示，格式 YYYY年MM月DD日
 	 * 
-	 * @param 分割符
-	 *            ，如：“/”，“-”，“.”，“”
+	 * 分割符，如：“/”，“-”，“.”，“”
 	 * @return 当前时间中文日期表示，格式 YYYY年MM月DD日
 	 */
 	public static String getYMD(String separator) {
@@ -221,8 +220,8 @@ public final class DateUtil {
 	 * 
 	 * getDayDiff(计算两个日期相差天数：end - start) (这里描述这个方法适用条件 – 可选)
 	 * 
-	 * @param date1
-	 * @param date2
+	 * @param start
+	 * @param end
 	 * @return int
 	 * @exception
 	 */
@@ -246,7 +245,6 @@ public final class DateUtil {
 	/**
 	 * 获取对应月份的最后一天
 	 * 
-	 * @param date
 	 * @return
 	 */
 	public static String doGetMonthEnd(String querymonth) {
@@ -269,7 +267,6 @@ public final class DateUtil {
 	/**
 	 * 获取最近三个月
 	 * 
-	 * @param date
 	 * @return
 	 */
 	public static Map<String, String> getThreeYM() {
