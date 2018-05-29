@@ -98,6 +98,12 @@
 		</dependency>
 		<!-- 日志处理 -->
 		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
@@ -328,7 +334,13 @@
 		    <version>${spring.version}</version>
 		    <scope>test</scope>
 		</dependency>
-		
+
+		<!--爬虫-->
+		<dependency>
+			<groupId>edu.uci.ics</groupId>
+			<artifactId>crawler4j</artifactId>
+			<version>4.3</version>
+		</dependency>
 
 	</dependencies>
 
