@@ -15,33 +15,29 @@ import org.jsoup.nodes.Document;
 public class Spider_HtmlDownloader {
 
 	private Logger logger = LogManager.getLogger(Spider_HtmlDownloader.class);
-	
+	private final static int RETRY = 5; //默认5次重连
+
 	public Document download(String newUrl) throws RuntimeException{
-		try {
-			return Jsoup.connect(newUrl).get();
-		} catch (IOException e) {
+		return download(newUrl, RETRY);
+	}
+
+	/**
+	 * 网络超时情况下，采用重连的策略
+	 * @param newUrl 爬url
+	 * @param n  重连次数
+	 * @return Document
+	 * @throws RuntimeException
+     */
+	private Document download(String newUrl, int n) throws RuntimeException{
+		if(n > 1) {
 			try {
-				logger.error("第1次抓取失败，正在尝试第2次重连...");
 				return Jsoup.connect(newUrl).get();
-			} catch (IOException e1) {
-				try {
-					logger.error("第2次抓取失败，正在尝试第3次重连...");
-					return Jsoup.connect(newUrl).get();
-				} catch (IOException e2) {
-					try {
-						logger.error("第3次抓取失败，正在尝试第4次重连...");
-						return Jsoup.connect(newUrl).get();
-					} catch (IOException e3) {
-						try {
-							logger.error("第4次抓取失败，正在尝试第5次重连...");
-							return Jsoup.connect(newUrl).get();
-						} catch (IOException e4) {
-							logger.error("连接超时，网页抓取失败...");
-							throw new RuntimeException("网络连接超时，请重试！");
-						}
-					}
-				}
+			} catch (IOException e) {
+				logger.error(String.format("第%d次抓取失败，正在尝试第%d次重连...", RETRY - n + 1, RETRY - n + 2));
+				return download(newUrl, n - 1);
 			}
+		}else{
+			throw new RuntimeException("网络连接超时，请重试！");
 		}
 	}
 }
