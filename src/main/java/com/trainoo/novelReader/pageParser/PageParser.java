@@ -1,4 +1,4 @@
-package com.trainoo.novel.pageParser;
+package com.trainoo.novelReader.pageParser;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -83,7 +83,7 @@ public class PageParser {
 	}
 	
 	public BufferedImage outputImage(int pageNum){
-		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("novel.png");
+		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("novelReader.png");
 		
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
@@ -112,14 +112,14 @@ public class PageParser {
 			rowNum ++;
 		}
 		// 输出流
-		//String outputPath = "C:/Users/Administrator/Desktop/novel.png";
+		//String outputPath = "C:/Users/Administrator/Desktop/novelReader.png";
 		//FileOutputStream fos = new FileOutputStream(new File(outputPath));
 		//ImageIO.write(buffImg, "png", fos);
 		return buffImg;
 	}
 	
 	public BufferedImage outputImage(String content){
-		//InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("novel.png");
+		//InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("novelReader.png");
 		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("backGround.png");
 		
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);

@@ -1,4 +1,4 @@
-package com.trainoo.novel.chapterParser;
+package com.trainoo.novelReader.chapterParser;
 
 import java.io.BufferedReader;
 import java.io.File;

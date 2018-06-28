@@ -1,4 +1,4 @@
-package com.trainoo.novel.chapterParser;
+package com.trainoo.novelReader.chapterParser;
 
 public class TitleInfo {
 

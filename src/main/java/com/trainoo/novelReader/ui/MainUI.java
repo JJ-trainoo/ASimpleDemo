@@ -1,4 +1,4 @@
-package com.trainoo.novel.ui;
+package com.trainoo.novelReader.ui;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import com.trainoo.novel.utils.EncodingDetect;
+import com.trainoo.novelReader.utils.EncodingDetect;
 
 public class MainUI implements ActionListener {
 

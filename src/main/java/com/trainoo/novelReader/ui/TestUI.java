@@ -1,4 +1,4 @@
-package com.trainoo.novel.ui;
+package com.trainoo.novelReader.ui;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -66,9 +66,9 @@ public class TestUI extends JFrame implements ActionListener {
 			// 移除当前选择的内容
 			dlm.remove(jl.getSelectedIndex());
 		}
-		// 如果按的是田间按钮
+		// 如果按的是添加按钮
 		if (e.getSource() == jb2) {
-			// 吧文本框中的内容添加到列表
+			// 把文本框中的内容添加到列表
 			dlm.addElement(jtf.getText());
 		}
 	}

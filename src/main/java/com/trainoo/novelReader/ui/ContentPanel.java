@@ -1,4 +1,4 @@
-package com.trainoo.novel.ui;
+package com.trainoo.novelReader.ui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.trainoo.novel.chapterParser.ChapterParser;
-import com.trainoo.novel.chapterParser.TitleInfo;
-import com.trainoo.novel.pageParser.PageConstant;
-import com.trainoo.novel.pageParser.PageParser;
+import com.trainoo.novelReader.chapterParser.ChapterParser;
+import com.trainoo.novelReader.chapterParser.TitleInfo;
+import com.trainoo.novelReader.pageParser.PageConstant;
+import com.trainoo.novelReader.pageParser.PageParser;
 
 public class ContentPanel extends JPanel {
 

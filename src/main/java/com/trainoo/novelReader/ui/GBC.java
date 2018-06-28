@@ -1,4 +1,4 @@
-package  com.trainoo.novel.ui;
+package  com.trainoo.novelReader.ui;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 

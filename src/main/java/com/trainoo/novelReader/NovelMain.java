@@ -1,6 +1,6 @@
-package com.trainoo.novel;
+package com.trainoo.novelReader;
 
-import com.trainoo.novel.ui.MainUI;
+import com.trainoo.novelReader.ui.MainUI;
 
 public class NovelMain {
 

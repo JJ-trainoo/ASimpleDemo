@@ -1,4 +1,4 @@
-package com.trainoo.novel.utils;
+package com.trainoo.novelReader.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

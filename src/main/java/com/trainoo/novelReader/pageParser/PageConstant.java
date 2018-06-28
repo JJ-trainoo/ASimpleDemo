@@ -1,4 +1,4 @@
-package com.trainoo.novel.pageParser;
+package com.trainoo.novelReader.pageParser;
 
 public class PageConstant {
 	

@@ -1,17 +1,27 @@
-package com.trainoo.crawler;
+package com.trainoo.crawler.demo;
 
+import com.trainoo.novelReader.chapterParser.TitleMatches;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2018/5/29.
  */
 public class MyCrawler extends WebCrawler {
+
+    private static Logger LOG = LoggerFactory.getLogger(MyCrawler.class);
+    private static String rootUrl = "http://www.6mao.com";
+
     /**
      * 正则匹配指定的后缀文件
      */
@@ -26,8 +36,8 @@ public class MyCrawler extends WebCrawler {
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();  // 得到小写的url
-        return !FILTERS.matcher(href).matches()   // 正则匹配，过滤掉我们不需要的后缀文件
-                && href.startsWith("http://www.83zw.com/");  // url必须是http://www.java1234.com/开头，规定站点
+        return !FILTERS.matcher(href).matches()    // 正则匹配，过滤掉我们不需要的后缀文件
+                && href.startsWith(rootUrl);       // url必须是rootUrl开头，规定站点
     }
 
     /**
@@ -37,17 +47,22 @@ public class MyCrawler extends WebCrawler {
     @Override
     public void visit(Page page) {
         String url = page.getWebURL().getURL();  // 获取url
-        System.out.println("URL: " + url);
+        LOG.info("Url: {}", url);
 
         if (page.getParseData() instanceof HtmlParseData) {  // 判断是否是html数据
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData(); // 强制类型转换，获取html数据对象
-            String text = htmlParseData.getText();  // 获取页面纯文本（无html标签）
-            String html = htmlParseData.getHtml();  // 获取页面Html
-            Set<WebURL> links = htmlParseData.getOutgoingUrls();  // 获取页面输出链接
-            if(text.contains("帝国吃相")) {
-                System.out.println("纯文本长度: " + text.length());
-                System.out.println("html长度: " + html.length());
-                System.out.println("输出链接个数: " + links.size());
+            // Set<WebURL> links = htmlParseData.getOutgoingUrls();  // 获取页面输出链接
+
+            Document doc = Jsoup.parse(htmlParseData.getHtml());
+            Elements lieBiaoList = doc.getElementsByClass("liebiao_bottom").first()
+                    .getElementsByTag("dl").first()
+                    .getElementsByTag("dd");
+            for( int i = 0; i < lieBiaoList.size(); i ++){
+                Element element = lieBiaoList.get(i);
+                String title = element.text();
+                if (TitleMatches.isZhang(title) || TitleMatches.isExtra(title)) {
+                    System.out.println(element.text());
+                }
             }
         }
     }

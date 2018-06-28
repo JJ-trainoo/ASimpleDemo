@@ -1,4 +1,4 @@
-package com.trainoo.novel.utils;
+package com.trainoo.novelReader.utils;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,11 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-
-import com.trainoo.novel.pageParser.PageParser;
 
 public class ImageUtil {
 	
@@ -25,7 +22,7 @@ public class ImageUtil {
 	public static void outputImage(String aticle) throws Exception{
 		String is = ClassLoader.getSystemClassLoader().getResource("backGround.png").getPath();
 		System.out.println(is);
-		String outputPath = "C:/Users/Administrator/Desktop/novel.png";
+		String outputPath = "C:/Users/Administrator/Desktop/novelReader.png";
 		
 		BufferedImage buffImg = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2D = (Graphics2D) buffImg.getGraphics();
