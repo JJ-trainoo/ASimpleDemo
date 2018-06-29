@@ -34,6 +34,11 @@
            overflowToDisk="false"
            memoryStoreEvictionPolicy="LRU"/>
 
+    <cache name="ChapterCache"
+           maxElementsInMemory="1000"
+           eternal="true"
+           overflowToDisk="true"
+           memoryStoreEvictionPolicy="LRU"/>
 
     <!--
     一、以下属性是必须的：
