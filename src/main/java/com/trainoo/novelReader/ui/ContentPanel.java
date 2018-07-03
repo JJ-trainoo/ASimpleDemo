@@ -19,8 +19,12 @@ import com.trainoo.novelReader.chapterParser.ChapterParser;
 import com.trainoo.novelReader.chapterParser.TitleInfo;
 import com.trainoo.novelReader.pageParser.PageConstant;
 import com.trainoo.novelReader.pageParser.PageParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ContentPanel extends JPanel {
+
+	private static Logger LOG = LoggerFactory.getLogger(ContentPanel.class);
 
 	private static final long serialVersionUID = 4782809279184852230L;
 
@@ -60,7 +64,7 @@ public class ContentPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					chapterName = jList.getSelectedValue();
-					System.out.println("chapterClicked_____________: " + chapterName);
+					LOG.info("点击章节：{}", chapterName);
 					toPage = 0; // 获取当前页
 					flag = 0;
 					init(dlm, jList);
@@ -97,7 +101,6 @@ public class ContentPanel extends JPanel {
 			findCurChapter(chapterName);
 		}
 		// 分页
-		System.out.println("flag:" + flag);
 		parserPage(chapterName, flag);
 		//获取图片
 		getCurrentPage(chapterName);
@@ -127,7 +130,7 @@ public class ContentPanel extends JPanel {
 					} else {
 						flag = 2;
 					}
-					System.out.println("toPage_up: " + toPage);
+					LOG.info("章节：{}，点击上一页", chapterName);
 					init(dlm, jList);
 				}
 			}
@@ -141,7 +144,7 @@ public class ContentPanel extends JPanel {
 					} else {
 						flag = -2;
 					}
-					System.out.println("toPage_down: " + toPage);
+					LOG.info("章节：{}，点击下一页", chapterName);
 					init(dlm, jList);
 				}
 			}
@@ -155,7 +158,6 @@ public class ContentPanel extends JPanel {
 	 * @date 2017年5月19日
 	 */
 	public void resetChapterPanel() {
-		System.out.println("resetChapterPanel===>>" + chapterName);
 		chapterPanel.revalidate();
 	}
 
@@ -174,7 +176,6 @@ public class ContentPanel extends JPanel {
 	 * 
 	 * @author zhout
 	 * @date 2017年5月19日
-	 * @param filePath
 	 * @param charset
 	 */
 	public void parserChapter(File fileF, String charset) {
@@ -194,7 +195,7 @@ public class ContentPanel extends JPanel {
 	 * @authod zhoutao
 	 */
 	private void findCurChapter(String chapterNeeded) {
-		System.out.println("开始查询===>> : " + chapterNeeded);
+		LOG.info("初始化数据：{}", chapterNeeded);
 		if (titles == null) {
 			return;
 		}
@@ -241,7 +242,7 @@ public class ContentPanel extends JPanel {
 				PageParser paser = new PageParser();
 				pages = paser.parser(file, charset, start, next);
 				pageSize = pages.size();
-				System.out.println("pageSize changed:" + pageSize + " , curPage:" + curPage);
+				LOG.info("分页总数：{}，当前所在页面：{}", pageSize, curPage);
 			}
 			if (flag == 1) {
 				toPage = pageSize - 1;
@@ -266,12 +267,12 @@ public class ContentPanel extends JPanel {
 	private void getCurrentPage(String curName) {
 		if (curPage != -1) {
 			if (!curChapName.equals(curName)) {
-				System.out.println("get Page11111:" + toPage);
+				LOG.info("跳转到页面(1)：{}", toPage);
 				buffImage = new PageParser().outputImage(pages.get(toPage));
 				this.curChapName = curName;
 				curPage = toPage;
 			} else {
-				System.out.println("get Page22222:" + toPage);
+				LOG.info("跳转到页面(2)：{}", toPage);
 				buffImage = new PageParser().outputImage(pages.get(toPage));
 			}
 		} else {

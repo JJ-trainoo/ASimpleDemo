@@ -96,7 +96,7 @@ public class ChapterParser {
 				parseLength += 2;
 				number++;
 				if (number >= MAX_PARSE_NUMBER) {
-					// 为了避免某个文档一直没有匹配到新章节而不停的向StringBuilder中添加内容,导致Android内存溢出，这里对StringBuilder的大小进行了一定的限制
+					// 为了避免某个文档一直没有匹配到新章节而不停的向StringBuilder中添加内容,导致内存溢出，这里对StringBuilder的大小进行了一定的限制
 					// 即解析的行数达到一定的数目之后，即使没有匹配到新章节也将StringBuilder清空，同时更新parseLength。
 					// 注意：这个数目的设定会影响到解析的时间，请谨慎设置!!!!
 					parseLength += builder.toString().getBytes(charset).length;
@@ -128,7 +128,7 @@ public class ChapterParser {
 					e.printStackTrace();
 				}
 			}
-			logger.info("执行完毕，耗时 : " + (System.currentTimeMillis() - time) + " mm,检测到" + titleList.size() + "章");
+			logger.info("执行完毕，耗时 : " + (System.currentTimeMillis() - time) + " ms,检测到" + titleList.size() + "章");
 		}
 		return titleList;
 	}
