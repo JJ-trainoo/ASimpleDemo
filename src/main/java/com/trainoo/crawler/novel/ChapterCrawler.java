@@ -1,8 +1,6 @@
 package com.trainoo.crawler.novel;
 
-import com.trainoo.ehcache.EhcacheKit;
 import com.trainoo.novelReader.chapterParser.TitleMatches;
-import com.trainoo.spider.Spider_Constant;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -16,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -61,39 +58,50 @@ public class ChapterCrawler extends WebCrawler {
                 String title = element.text();
                 if (TitleMatches.isZhang(title) || TitleMatches.isExtra(title)) {
                     chapterList.add(title);
-                    LOG.info("chapter title：{}", title);
+                    // LOG.info("chapter title：{}", title);
                 }
             }
         }else{
-            Element element = doc.getElementById("neirong");
             String title = doc.getElementById("content").getElementsByTag("h1").first().text();
-            String content = element.text();
-           // int titleNum = CNNum2ArabKit.cnNumericToArabic(title.s)
-            Chapter chapter = new Chapter(title, content);
-            ChapterDB.insert(chapter);
-            LOG.info("insert chapter info：{}", chapter);
+            if(chapterList.contains(title)){
+                int titleNum = CNNum2ArabKit.cnNumericToArabic(subString(title), true);
+                String content = doc.getElementById("neirong").text();
+                Chapter chapter = new Chapter(title, content, titleNum);
+                ChapterDB.insert(chapter);
+                LOG.info("保存内容到数据库成功，章节：{}", title);
+            }
         }
     }
 
     public String subString(String str) {
-
         String strStart = "第";
+        String strEnd = "章 ";
         /* 找出指定的2个字符在 该字符串里面的 位置 */
         int strStartIndex = str.indexOf(strStart);
-        int strEndIndex = str.indexOf("章");
+        int strEndIndex = str.indexOf(strEnd);
 
         /* index 为负数 即表示该字符串中 没有该字符 */
         if (strStartIndex < 0) {
-            LOG.error("截取章节数失败，章节：{}", str);
-            return "零";
+            LOG.error("截取章节数失败，未找到起始字符，章节：{}", str);
+            return "";
         }
         if (strEndIndex < 0) {
-            LOG.error("截取章节数失败，章节：{}", str);
-            return "零";
+            LOG.error("截取章节数失败，未找到结束字符，章节：{}", str);
+            return "";
         }
         /* 开始截取 */
-        String result = str.substring(strStartIndex, strEndIndex).substring(strStart.length());
+        String result = "";
+        try{
+            result = str.substring(strStartIndex, strEndIndex).substring(strStart.length());
+        }catch (Exception e){
+            LOG.error("截取章节数失败，章节：{}，处理异常：{}", str, e);
+        }
         return result;
     }
 
+    public static void main(String[] args) {
+        String title = "第四百五十三章 章鱼";
+        String titleNumStr = new ChapterCrawler().subString(title);
+        System.out.println(titleNumStr);
+    }
 }

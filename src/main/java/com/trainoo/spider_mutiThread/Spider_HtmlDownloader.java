@@ -1,6 +1,7 @@
 package com.trainoo.spider_mutiThread;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -33,7 +34,7 @@ public class Spider_HtmlDownloader {
 			try {
 				return Jsoup.connect(newUrl).get();
 			} catch (IOException e) {
-				logger.error(String.format("第%d次抓取失败，正在尝试第%d次重连...", RETRY - n + 1, RETRY - n + 2));
+				logger.error(MessageFormat.format("第{0}次抓取失败，正在尝试第{1}次重连...", RETRY - n + 1, RETRY - n + 2));
 				return download(newUrl, n - 1);
 			}
 		}else{

@@ -13,9 +13,12 @@ public class Chapter {
 
     int titleNum;
 
-    public Chapter(String title, String content){
+    public Chapter(){}
+
+    public Chapter(String title, String content, int titleNum){
         this.title = title;
         this.content = content;
+        this.titleNum = titleNum;
     }
 
     public int getTitleNum() {
@@ -56,6 +59,7 @@ public class Chapter {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", titleNum=" + titleNum +
                 '}';
     }
 }

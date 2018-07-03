@@ -1,6 +1,7 @@
 package com.trainoo.crawler.novel;
 
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,14 +54,16 @@ public class CNNum2ArabKit {
 
     /**
      * 中文数字转阿拉伯数字
-     *
+     * 最大支持：2^32 = 2147483647
      * @param cnn
      * @param flag
      * @return int
      */
     public static int cnNumericToArabic(String cnn, boolean flag) {
-
         cnn = cnn.trim();
+        if (cnn.length() == 0){
+            return 0;
+        }
         if (cnn.length() == 1) {
             return isCNNumeric(cnn.charAt(0));
         }
@@ -159,8 +162,17 @@ public class CNNum2ArabKit {
         return val;
     }
 
+    /**
+     * 对cnNumericToArabic的扩展，支持更大范围的数值大小
+     * @param cnn
+     * @param flag
+     * @return BigDecimal
+     */
     public static BigDecimal cnBigNumericToArabic(String cnn, boolean flag) {
         cnn = cnn.trim();
+        if (cnn.length() == 0){
+            return new BigDecimal(0);
+        }
         if (cnn.length() == 1) {
             return new BigDecimal(isCNNumeric(cnn.charAt(0)));
         }
@@ -260,9 +272,12 @@ public class CNNum2ArabKit {
     }
 
     public static void main(String[] args) {
-        System.out.println(CNNum2ArabKit.isCNNumeric('零'));
-        System.out.println(CNNum2ArabKit.cnNumericToArabic("一九九八", true));
-        System.out.println(CNNum2ArabKit.cnNumericToArabic("一千万亿零壹拾壹", true));
-        System.out.println(CNNum2ArabKit.cnBigNumericToArabic("一千万亿零壹拾壹", true));
+        int arg1 = CNNum2ArabKit.isCNNumeric('零');
+        int arg2 = CNNum2ArabKit.cnNumericToArabic("二十一亿四千七百四十八万三千六百四十七", true);
+        BigDecimal arg3 = CNNum2ArabKit.cnBigNumericToArabic("一万万", true);
+
+        System.out.println(MessageFormat.format("{0}", arg1));
+        System.out.println(MessageFormat.format("{0}", arg2));
+        System.out.println(MessageFormat.format("{0}", arg3));
     }
 }
