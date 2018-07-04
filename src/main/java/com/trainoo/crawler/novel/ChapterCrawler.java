@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -51,6 +52,11 @@ public class ChapterCrawler extends WebCrawler {
         // 是否是第一个Url
         if(isRootUrl){
             isRootUrl = false;
+            try {
+                doc = Jsoup.connect("http://www.6mao.com/html/53/53302/index.html").get();
+            } catch (IOException e) {
+                LOG.error("解析章节目录列表失败~", e);
+            }
             Elements lieBiaoList = doc.getElementsByClass("liebiao_bottom").first()
                     .getElementsByTag("dl").first()
                     .getElementsByTag("dd");
@@ -68,7 +74,6 @@ public class ChapterCrawler extends WebCrawler {
                 String content = doc.getElementById("neirong").text();
                 Chapter chapter = new Chapter(title, content, titleNum);
                 ChapterDB.insert(chapter);
-                LOG.info("保存内容到数据库成功，章节：{}", title);
             }
         }
     }

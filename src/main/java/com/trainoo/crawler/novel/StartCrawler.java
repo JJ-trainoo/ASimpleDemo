@@ -26,6 +26,7 @@ public class StartCrawler {
         CrawlConfig config = new CrawlConfig();           // 定义爬虫配置
         config.setCrawlStorageFolder(crawlStorageFolder); // 设置爬虫文件存储位置
         config.setMaxDepthOfCrawling(maxDepthOfCrawling); // 设置爬虫爬取深度
+        config.setResumableCrawling(true);                // 恢复停止/崩溃的爬虫
 
         PageFetcher pageFetcher = new PageFetcher(config);       // 实例化页面获取器
         RobotstxtConfig robotstxtConfig = new RobotstxtConfig(); // 实例化爬虫机器人配置 比如可以设置 user-agent

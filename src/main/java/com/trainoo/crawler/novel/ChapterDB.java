@@ -47,6 +47,7 @@ public class ChapterDB {
             pstmt.setString(2, chapter.getContent());
             pstmt.setInt(3, chapter.getTitleNum());
             i = pstmt.executeUpdate();
+            LOG.info("保存内容到数据库成功，章节：{}", chapter.getTitle());
 
         } catch (MySQLIntegrityConstraintViolationException e1){
             LOG.error("检测到重复数据：{}，已舍弃", chapter.getTitle());
